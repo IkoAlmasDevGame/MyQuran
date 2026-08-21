@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport"
+         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+      <title>MyQur'an Indonesia - Premium</title>
+      <meta name="description" content="MyQur'an Indonesia Premium Offline Release 2026 v1">
+      <meta name="keywords" content="MyQuran, Quran Indonesia, MyQuran Offline">
+      <link rel="shortcut icon" href="MyQuran-premium.png" type="image/png">
+
+      <!-- Tailwind CSS -->
+      <script src="https://cdn.tailwindcss.com"></script>
+
+      <!-- Phosphor Icons -->
+      <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+      <!-- Google Fonts -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link
+         href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+         rel="stylesheet">
+
+      <!-- QR Code Libraries -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+
+      <script>
+         tailwind.config = {
+            darkMode: 'class',
+            theme: {
+               extend: {
+                  fontFamily: {
+                     sans: ['Inter', 'sans-serif'],
+                     display: ['Outfit', 'sans-serif'],
+                     arabic: ['"Amiri Quran"', 'serif'],
+                     mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+                  },
+                  colors: {
+                     brand: {
+                        50: '#ecfdf5', 100: '#d1fae5', 500: '#10b981',
+                        600: '#059669', 700: '#047857', 800: '#065f46', 900: '#064e3b',
+                     },
+                     darkbg: '#09090b',
+                     darkcard: '#18181b'
+                  }
+               }
+            }
+         }
+      </script>
+
+      <style>
+         /* Base & Scrollbar */
+         ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+         }
+
+         ::-webkit-scrollbar-track {
+            background: transparent;
+         }
+
+         ::-webkit-scrollbar-thumb {
+            background: rgba(156, 163, 175, 0.5);
+            border-radius: 10px;
+         }
+
+         html {
+            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
+         }
+
+         body {
+            background-color: #f4f4f5;
+            color: #18181b;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
+         }
+
+         .dark body {
+            background-color: #09090b;
+            color: #fafafa;
+         }
+
+         /* Glassmorphism & Depth */
+         .glass-panel {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+         }
+
+         .dark .glass-panel {
+            background: rgba(24, 24, 27, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 30px -4px rgba(0, 0, 0, 0.3);
+         }
+
+         .btn-depth {
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+         }
+
+         .btn-depth:active {
+            transform: scale(0.97);
+         }
+
+         .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px -5px rgba(16, 185, 129, 0.15);
+         }
+
+         .dark .hover-lift:hover {
+            box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.5);
+         }
+
+         /* Typography & Layout Helpers */
+         .arabic-text {
+            direction: rtl;
+            line-height: 2.2 !important;
+            text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+            padding: 0.5rem 0;
+         }
+
+         .dark .arabic-text {
+            text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4);
+         }
+
+         .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+         }
+
+         .pt-safe {
+            padding-top: env(safe-area-inset-top, 20px);
+         }
+
+         /* Animations */
+         .fade-in {
+            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+         }
+
+         .slide-up {
+            animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+         }
+
+         @keyframes fadeIn {
+            from {
+               opacity: 0;
+            }
+
+            to {
+               opacity: 1;
+            }
+         }
+
+         @keyframes slideUp {
+            from {
+               opacity: 0;
+               transform: translateY(20px);
+            }
+
+            to {
+               opacity: 1;
+               transform: translateY(0);
+            }
+         }
+
+         .toast {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(20px) scale(0.95);
+            opacity: 0;
+         }
+
+         .toast.show {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+         }
+
+         .compass-transition {
+            transition: transform 0.2s ease-out;
+         }
+
+         /* Quiz States */
+         .option-correct {
+            background-color: #10b981 !important;
+            color: white !important;
+            border-color: #10b981 !important;
+         }
+
+         .option-wrong {
+            background-color: #ef4444 !important;
+            color: white !important;
+            border-color: #ef4444 !important;
+         }
+
+         .option-disabled {
+            opacity: 0.6;
+            pointer-events: none;
+         }
+
+         /* QR Scanner Overrides */
+         #reader__scan_region {
+            background: black;
+            border-radius: 1rem;
+            overflow: hidden;
+         }
+
+         #reader__dashboard_section_csr span {
+            color: white !important;
+         }
+      </style>
+   </head>
+
+   <body class="antialiased pb-[88px] lg:pb-0 lg:pl-72 flex flex-col min-h-screen">
+
+      <!-- Desktop Sidebar -->
+      <aside
+         class="fixed inset-y-0 left-0 w-72 glass-panel hidden lg:flex flex-col z-40 border-r border-gray-200 dark:border-white/5">
+         <div class="p-8 flex items-center gap-4">
+            <div
+               class="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-white shadow-lg shadow-brand-500/20">
+               <i class="ph-fill ph-book-open text-2xl"></i>
+            </div>
+            <h1 class="font-display font-bold text-2xl tracking-tight">MyQur'an</h1>
+         </div>
+
+         <nav class="flex-1 px-6 py-4 space-y-2 overflow-y-auto" id="desktop-nav"></nav>
+
+         <div class="p-6 border-t border-gray-200 dark:border-white/5">
+            <button onclick="app.toggleTheme()"
+               class="w-full flex items-center justify-between px-5 py-4 rounded-2xl btn-depth glass-panel hover:bg-white/50 dark:hover:bg-white/5 text-gray-600 dark:text-gray-300 transition-colors">
+               <span class="font-medium text-sm">Tema Tampilan</span>
+               <i class="ph-fill ph-moon text-xl dark:hidden text-gray-400"></i>
+               <i class="ph-fill ph-sun text-xl hidden dark:block text-brand-400"></i>
+            </button>
+         </div>
+      </aside>
+
+      <!-- Mobile Header -->
+      <header
+         class="lg:hidden sticky top-0 z-30 glass-panel border-b border-gray-200 dark:border-white/5 px-5 pt-safe flex justify-between items-center h-[72px]">
+         <div class="flex items-center gap-3">
+            <div
+               class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-white shadow-md">
+               <i class="ph-fill ph-book-open text-lg"></i>
+            </div>
+            <h1 class="font-display font-bold text-xl tracking-tight">MyQur'an</h1>
+         </div>
+         <button onclick="app.toggleTheme()"
+            class="w-10 h-10 rounded-full btn-depth flex items-center justify-center text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-white/5">
+            <i class="ph-fill ph-moon text-lg dark:hidden"></i>
+            <i class="ph-fill ph-sun text-lg hidden dark:block"></i>
+         </button>
+      </header>
+
+      <!-- Main Content -->
+      <main id="app-content" class="flex-1 w-full max-w-5xl mx-auto p-4 sm:p-6 lg:p-10 relative"></main>
+
+      <!-- Mobile Bottom Nav -->
+      <nav
+         class="lg:hidden fixed bottom-0 left-0 right-0 glass-panel border-t border-gray-200 dark:border-white/5 z-40 pb-safe">
+         <div class="flex justify-around items-center h-[72px] px-2" id="mobile-nav"></div>
+      </nav>
+
+      <!-- Global Audio Player -->
+      <div id="audio-player"
+         class="fixed bottom-[96px] lg:bottom-8 right-4 lg:right-8 w-[calc(100%-2rem)] lg:w-80 glass-panel rounded-3xl p-5 z-50 transform translate-y-full opacity-0 transition-all duration-500 pointer-events-none shadow-2xl shadow-brand-500/10 border border-white/40 dark:border-white/10">
+         <div class="flex justify-between items-center mb-3">
+            <div class="flex-1 overflow-hidden pr-2">
+               <p class="text-[10px] font-bold text-brand-500 uppercase tracking-widest mb-1">Sedang Diputar</p>
+               <h4 id="audio-title" class="font-display font-semibold text-sm truncate">...</h4>
+            </div>
+            <button onclick="audioManager.close()"
+               class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-red-500 bg-gray-100 dark:bg-white/5 rounded-full transition-colors"><i
+                  class="ph-bold ph-x text-sm"></i></button>
+         </div>
+         <div class="flex items-center justify-center gap-6 mt-4">
+            <button id="btn-audio-prev" class="text-gray-400 hover:text-brand-500 transition-colors"><i
+                  class="ph-fill ph-skip-back text-xl"></i></button>
+            <button id="btn-audio-play" onclick="audioManager.togglePlay()"
+               class="w-14 h-14 rounded-full bg-brand-500 text-white shadow-lg shadow-brand-500/30 flex items-center justify-center hover:scale-105 transition-transform"><i
+                  class="ph-fill ph-play text-2xl" id="icon-play-pause"></i></button>
+            <button id="btn-audio-next" class="text-gray-400 hover:text-brand-500 transition-colors"><i
+                  class="ph-fill ph-skip-forward text-xl"></i></button>
+         </div>
+         <div class="mt-5 flex items-center gap-3 text-[11px] font-medium text-gray-500 font-sans">
+            <span id="audio-current" class="w-8 text-right">0:00</span>
+            <div class="flex-1 h-1.5 bg-gray-200 dark:bg-white/10 rounded-full overflow-hidden cursor-pointer relative"
+               id="audio-progress-container" onclick="audioManager.seek(event)">
+               <div id="audio-progress"
+                  class="absolute top-0 left-0 h-full bg-brand-500 w-0 rounded-full transition-all duration-100"></div>
+            </div>
+            <span id="audio-duration" class="w-8">0:00</span>
+         </div>
+         <audio id="global-audio" class="hidden"></audio>
+      </div>
+
+      <!-- Toasts & Modals -->
+      <div id="toast-container"
+         class="fixed top-24 lg:top-10 left-1/2 transform -translate-x-1/2 flex flex-col gap-3 z-[60] w-full max-w-sm px-4 pointer-events-none">
+      </div>
+      <div id="modal-overlay"
+         class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[70] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+         <div id="modal-content"
+            class="glass-panel w-full max-w-lg rounded-[2rem] p-5 sm:p-8 transform scale-95 transition-transform duration-300 border border-white/10 relative shadow-2xl max-h-[90vh] overflow-y-auto w-full">
+         </div>
+      </div>
+
+      <script src="script.js" lang="javascript"></script>
+   </body>
+
+</html>
