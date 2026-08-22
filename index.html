@@ -14,6 +14,7 @@
       <!-- Tailwind CSS -->
       <script src="https://cdn.tailwindcss.com"></script>
       <link rel="manifest" href="manifest.json">
+      <link rel="stylesheet" href="style.css">
 
       <!-- Phosphor Icons -->
       <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -219,7 +220,13 @@
 
    <body class="antialiased pb-[88px] lg:pb-0 lg:pl-72 flex flex-col min-h-screen">
 
-      <!-- Desktop Sidebar -->
+<div id="installBanner" class="install-banner" style="display: none;">
+  <p>Install TegaTech for a better experience!</p>
+  <button id="installBtn">Install Now</button>
+  <button id="dismissBtn" onclick="this.parentNode.style.display='none'">Maybe Later</button>
+</div>
+
+   <!-- Desktop Sidebar -->
     <aside class="fixed inset-y-0 left-0 w-72 glass-panel hidden lg:flex flex-col z-40 border-r border-gray-200 dark:border-white/5">
         <div class="p-8 flex items-center gap-4">
             <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-400 flex items-center justify-center text-white shadow-lg shadow-brand-500/20">
@@ -306,6 +313,47 @@
 
       <!-- ================= JAVASCRIPT ENGINE ================= -->
       <script src="script.js"></script>
+      <script lang="javascript">
+         let deferredPrompt;
+
+// Listen for the beforeinstallprompt event
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevent Chrome 67+ from automatically showing the prompt
+  e.preventDefault();
+
+  // Stash the event so it can be triggered later
+  deferredPrompt = e;
+
+  // Update UI to notify the user they can add to home screen
+  const installBanner = document.getElementById('installBanner');
+  if (installBanner) {
+    installBanner.style.display = 'flex';
+  }
+});
+
+// Setup the install button click handler
+document.getElementById('installBtn').addEventListener('click', async () => {
+  // Hide our user interface that shows our install button
+  document.getElementById('installBanner').style.display = 'none';
+
+  // Show the prompt
+  deferredPrompt.prompt();
+
+  // Wait for the user to respond to the prompt
+  const { outcome } = await deferredPrompt.userChoice;
+  console.log(`User response: ${outcome}`);
+
+  // We've used the prompt, and can't use it again, throw it away
+  deferredPrompt = null;
+});
+
+// Listen for successful installation
+window.addEventListener('appinstalled', (event) => {
+  console.log('App was installed to home screen');
+  // Analytics tracking
+  gtag('event', 'pwa_installed');
+});
+      </script>
    </body>
 
 </html>
