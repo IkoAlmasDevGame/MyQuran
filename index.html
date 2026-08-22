@@ -219,50 +219,37 @@
    <body class="antialiased pb-[88px] lg:pb-0 lg:pl-72 flex flex-col min-h-screen">
 
       <!-- Desktop Sidebar -->
-      <aside
-         class="fixed inset-y-0 left-0 w-72 glass-panel hidden lg:flex flex-col z-40 border-r border-gray-200 dark:border-white/5">
-         <div class="p-8 flex items-center gap-4">
-            <div
-               class="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-400 flex items-center justify-center text-white shadow-lg shadow-brand-500/20">
-               <i class="ph-fill ph-book-open text-2xl text-gray-400"></i>
-               class="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-600 to-brand-400 flex items-center justify-center text-white shadow-md">
-               <i class="ph-fill ph-book-open text-2xl text-gray-600"></i>
+      <!-- Desktop Sidebar -->
+    <aside class="fixed inset-y-0 left-0 w-72 glass-panel hidden lg:flex flex-col z-40 border-r border-gray-200 dark:border-white/5">
+        <div class="p-8 flex items-center gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-white shadow-lg shadow-brand-500/20">
+                <i class="ph-fill ph-book-open text-2xl text-gray-400"></i>
             </div>
             <h1 class="font-display font-bold text-2xl tracking-tight">MyQur'an</h1>
-         </div>
-
-         <nav class="flex-1 px-6 py-4 space-y-2 overflow-y-auto" id="desktop-nav"></nav>
-
-         <div class="p-6 border-t border-gray-200 dark:border-white/5">
-            <button onclick="app.toggleTheme()"
-               class="w-full flex items-center justify-between px-5 py-4 rounded-2xl btn-depth glass-panel hover:bg-white/50 dark:hover:bg-white/5 text-gray-600 dark:text-gray-300 transition-colors">
-               <span class="font-medium text-sm">Tema Tampilan</span>
-               <i class="ph-fill ph-moon text-xl dark:hidden text-gray-400"></i>
-               <i class="ph-fill ph-sun text-xl hidden dark:block text-brand-400"></i>
+        </div>
+        <nav class="flex-1 px-6 py-4 space-y-3" id="desktop-nav"></nav>
+        <div class="p-6">
+            <button onclick="app.toggleTheme()" class="w-full flex items-center justify-between px-5 py-4 rounded-2xl btn-depth glass-panel hover:bg-white/50 dark:hover:bg-white/5 text-gray-600 dark:text-gray-300 transition-colors">
+                <span class="font-medium text-sm">Tema Tampilan</span>
+                <i class="ph-fill ph-moon text-xl dark:hidden text-gray-400"></i>
+                <i class="ph-fill ph-sun text-xl hidden dark:block text-brand-400"></i>
             </button>
-         </div>
-      </aside>
+        </div>
+    </aside>
 
-      <!-- Mobile Header -->
-      <header
-         class="lg:hidden sticky top-0 z-30 glass-panel border-b border-gray-200 dark:border-white/5 px-5 pt-safe flex justify-between items-center h-[72px]">
-         <div class="flex items-center gap-3">
-            <div
-<<<<<<< HEAD
-               class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-brand-400 flex items-center justify-center text-white shadow-md">
-=======
-               class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-white shadow-md">
->>>>>>> 1e9a143eaff714faacb21198ff1149b6b3e406bb
+    <!-- Mobile Header -->
+    <header class="lg:hidden sticky top-0 z-30 glass-panel border-b border-gray-200 dark:border-white/5 px-5 pt-safe flex justify-between items-center h-[72px]">
+        <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-white shadow-md">
                <i class="ph-fill ph-book-open text-lg text-gray-400"></i>
             </div>
             <h1 class="font-display font-bold text-xl tracking-tight">MyQur'an</h1>
-         </div>
-         <button onclick="app.toggleTheme()"
-            class="w-10 h-10 rounded-full btn-depth flex items-center justify-center text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-white/5">
+        </div>
+        <button onclick="app.toggleTheme()" class="w-10 h-10 rounded-full btn-depth flex items-center justify-center text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-white/5">
             <i class="ph-fill ph-moon text-lg dark:hidden"></i>
             <i class="ph-fill ph-sun text-lg hidden dark:block"></i>
-         </button>
-      </header>
+        </button>
+    </header>
 
       <!-- Main Content -->
       <main id="app-content" class="flex-1 w-full max-w-5xl mx-auto p-4 sm:p-6 lg:p-10 relative"></main>
