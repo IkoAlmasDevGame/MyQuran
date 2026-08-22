@@ -1020,11 +1020,11 @@ const app = {
       // Render ulang halaman Quiz
       this.navigate('quiz')
     } catch (e) {
-      console.error('Error Fetching Quiz APIs:', e)
-      Utils.showToast(
-        'Gagal memuat API Kuis. Pastikan internet Anda aktif.',
-        'error',
-      )
+      // console.error('Error Fetching Quiz APIs:', e)
+      // Utils.showToast(
+      //   'Gagal memuat API Kuis. Pastikan internet Anda aktif.',
+      //   'error',
+      // )
     }
   },
 
