@@ -1,0 +1,21 @@
+{
+  "name": "MyQuran Premium Indonesia",
+  "short_name": "MyQuran",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4A90E2",
+  "description": "Building scalable solutions for Nigerian businesses",
+  "icons": [
+    {
+      "src": "/MyQuran-premium.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/MyQuran-premium.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
