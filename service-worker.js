@@ -2,6 +2,7 @@ const CACHE_NAME = 'tegate-cache-v1';
 const urlsToCache = [
   '/',
   '/index.html',
+  '/style.css',
   '/script.js',
   '/main.js',
   '/MyQuran-premium.png',
