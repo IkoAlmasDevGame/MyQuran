@@ -905,6 +905,7 @@ const app = {
       const surahData = surahRes.data
       const asmaulData = asmaulRes.data
 
+      todayDate = new Date()
       let pool = []
 
       // 1. Generate Soal dari API Doa Harian
@@ -1020,11 +1021,11 @@ const app = {
       // Render ulang halaman Quiz
       this.navigate('quiz')
     } catch (e) {
-      // console.error('Error Fetching Quiz APIs:', e)
-      // Utils.showToast(
-      //   'Gagal memuat API Kuis. Pastikan internet Anda aktif.',
-      //   'error',
-      // )
+      console.error('Error Fetching Quiz APIs:', e)
+      Utils.showToast(
+        'Gagal memuat API Kuis. Pastikan internet Anda aktif.',
+        'error',
+      )
     }
   },
 
