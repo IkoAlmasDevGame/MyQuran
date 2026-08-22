@@ -1,0 +1,33 @@
+.install-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #f8f9fa;
+  color: #333;
+  padding: 16px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Segoe UI', sans-serif;
+  z-index: 1000;
+}
+
+.install-banner button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#installBtn {
+  background: #4A90E2;
+  color: white;
+}
+
+#dismissBtn {
+  background: transparent;
+  color: #666;
+}
