@@ -2,7 +2,7 @@
 
 - Fitur Wajib :
 
-1. Teks Quran Utsmani 30 Juz
+1. Teks Quran Utsmani 30 Juz (API https://equran.id/)
 2. Terjemah Kemenag RI
 3. Audio Murrotal
 4. Pencarian Cepat
@@ -13,8 +13,8 @@
 
 1. Jadwal Sholat + Arah Kiblat
 2. Tafsir Ringkas Kemenag
-3. 99 Nama Asmaul Husna
-4. Doa Harian
+3. 99 Nama Asmaul Husna (API https://api.aladhan.com/v1/asmaAlHusna)
+4. Doa Harian (API https://equran.id/)
 5. Target Khatam Manual
 6. Kalender Hijriah
 7. Mode malam & Atur Font
@@ -22,8 +22,8 @@
 - Fitur Tambahan :
 
 1. Bookmark & Highlight
-2. Murrotal Pengantar Tidur
-3. Share Kartu Ayat
+2. Murrotal Pengantar Tidur (Update Mendatang)
+3. Share Kartu Ayat (Update mendatang)
 4. Quiz Quran Offline
 
 - Fitur tanpa login :

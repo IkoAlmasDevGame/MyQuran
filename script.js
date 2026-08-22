@@ -1,373 +1,4 @@
 const Database = {
-  quiz: [
-    {
-      q: 'Surah apa yang disebut sebagai jantungnya Al-Quran?',
-      options: ['Al-Baqarah', 'Yasin', 'Al-Kahfi', 'Al-Mulk'],
-      ans: 1,
-      exp: 'Surah Yasin sering disebut sebagai jantung Al-Quran karena kandungannya yang mencakup tauhid, risalah, dan hari akhirat.',
-    },
-    {
-      q: "Asmaul Husna 'Al-Khaliq' memiliki arti...",
-      options: [
-        'Yang Maha Memelihara',
-        'Yang Maha Mengetahui',
-        'Yang Maha Pencipta',
-        'Yang Maha Pengampun',
-      ],
-      ans: 2,
-      exp: 'Al-Khaliq berarti Yang Maha Pencipta, yang menciptakan sesuatu dari tidak ada menjadi ada.',
-    },
-    {
-      q: "Kapan doa 'Bismikallahumma ahyaa wa amuutu' diucapkan?",
-      options: [
-        'Sebelum makan',
-        'Saat bangun tidur',
-        'Saat keluar rumah',
-        'Sebelum tidur',
-      ],
-      ans: 3,
-      exp: "Ini adalah doa sebelum tidur, artinya 'Dengan nama-Mu, ya Allah, aku hidup dan mati.'",
-    },
-    {
-      q: 'Berapa jumlah keseluruhan ayat dalam Surah Al-Baqarah?',
-      options: ['286 ayat', '200 ayat', '256 ayat', '300 ayat'],
-      ans: 0,
-      exp: 'Surah Al-Baqarah adalah surah terpanjang dalam Al-Quran yang terdiri dari 286 ayat.',
-    },
-    {
-      q: "Apa arti dari Asmaul Husna 'Ar-Rahman'?",
-      options: [
-        'Yang Maha Penyayang',
-        'Yang Maha Pengasih',
-        'Yang Maha Suci',
-        'Yang Maha Adil',
-      ],
-      ans: 1,
-      exp: 'Ar-Rahman berarti Yang Maha Pengasih untuk seluruh makhluk di dunia tanpa terkecuali.',
-    },
-    {
-      q: "Doa 'Alhamdulillahilladzi ath'amanaa...' dibaca ketika?",
-      options: [
-        'Memulai makan',
-        'Setelah makan',
-        'Masuk masjid',
-        'Memakai pakaian',
-      ],
-      ans: 1,
-      exp: 'Doa tersebut dibaca setelah selesai makan sebagai bentuk rasa syukur atas rezeki.',
-    },
-    {
-      q: 'Surah pertama yang diturunkan kepada Nabi Muhammad SAW di Gua Hira adalah...',
-      options: ['Al-Fatihah', 'Al-Muddatstsir', "Al-'Alaq (1-5)", 'Al-Baqarah'],
-      ans: 2,
-      exp: "Wahyu pertama adalah 5 ayat pertama dari Surah Al-'Alaq dengan perintah 'Iqra' (Bacalah).",
-    },
-    {
-      q: "Asmaul Husna 'Al-Ghaffar' memiliki makna...",
-      options: [
-        'Yang Maha Pengampun',
-        'Yang Maha Perkasa',
-        'Yang Maha Bijaksana',
-        'Yang Maha Melihat',
-      ],
-      ans: 0,
-      exp: 'Al-Ghaffar berarti Yang Maha Pengampun, senantiasa menutupi dosa hamba-Nya yang bertaubat.',
-    },
-    {
-      q: "Kalimat 'Laa haula wa laa quwwata illa billaah' terdapat dalam doa...",
-      options: ['Masuk wc', 'Keluar rumah', 'Sebelum belajar', 'Sesudah wudhu'],
-      ans: 1,
-      exp: 'Hauqalah (tawakkal) merupakan bagian dari doa keluar rumah.',
-    },
-    {
-      q: 'Apa nama surah yang tidak diawali dengan lafaz Bismillah?',
-      options: ['At-Taubah', 'Al-Anfal', 'An-Naml', 'Al-Fath'],
-      ans: 0,
-      exp: 'Surah At-Taubah adalah satu-satunya surah yang tidak diawali basmalah karena membawa peringatan keras.',
-    },
-  ],
-  doa: [
-    {
-      title: '1. Doa Pagi Hari',
-      cat: 'Harian',
-      ar: 'اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ',
-      la: 'Allahumma bika ashbahna, wa bika amsaina, wa bika nahya, wa bika namutu, wa ilaikan nusyur.',
-      id: 'Ya Allah, dengan rahmat-Mu kami memasuki waktu pagi dan petang, kami hidup dan mati, dan kepada-Mu tempat kembali.',
-    },
-    {
-      title: '2. Doa Bangun Tidur',
-      cat: 'Harian',
-      ar: 'الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ',
-      la: "Alhamdu lillaahil ladzii ahyaana ba'da maa amaatana wa ilaihin nusyuur.",
-      id: 'Segala puji bagi Allah yang telah menghidupkan kami setelah mematikan kami, dan kepada-Nya kami dikembalikan.',
-    },
-    {
-      title: '3. Doa Sebelum Tidur',
-      cat: 'Harian',
-      ar: 'بِاسْمِكَ اللَّهُمَّ أَحْيَا وَأَمُوتُ',
-      la: 'Bismikallahumma ahyaa wa amuutu.',
-      id: 'Dengan nama-Mu, ya Allah, aku hidup dan aku mati.',
-    },
-    {
-      title: '4. Doa Mohon Mimpi Baik',
-      cat: 'Tidur',
-      ar: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ رُؤْيَا صَالِحَةً صَادِقَةً غَيْرَ كَاذِبَةٍ',
-      la: "Allahumma inni as'aluka ru'yan shalihah shadiqah ghaira kadzibah.",
-      id: 'Ya Allah, aku memohon mimpi yang baik, benar, dan tidak dusta.',
-    },
-    {
-      title: '5. Doa Jika Mimpi Baik',
-      cat: 'Tidur',
-      ar: 'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ',
-      la: "Alhamdulillahi rabbil 'aalamiin.",
-      id: 'Segala puji bagi Allah, Tuhan semesta alam. (Lalu ceritakan hanya pada orang yang menyayangi).',
-    },
-    {
-      title: '6. Doa Mimpi Buruk',
-      cat: 'Tidur',
-      ar: 'أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ غَضَبِهِ وَعِقَابِهِ وَشَرِّ عِبَادِهِ',
-      la: "A'uudzu bikalimaatillaahit taammaati min ghadhabihi wa 'iqaabihi wa syarri 'ibaadihi.",
-      id: 'Aku berlindung dengan kalimat Allah yang sempurna dari murka-Nya, siksa-Nya, dan kejahatan hamba-hamba-Nya.',
-    },
-    {
-      title: '7. Doa Mulai Aktivitas',
-      cat: 'Harian',
-      ar: 'بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ',
-      la: 'Bismillahirrahmanirrahim.',
-      id: 'Dengan menyebut nama Allah Yang Maha Pengasih lagi Maha Penyayang.',
-    },
-    {
-      title: '8. Doa Masuk Kamar Mandi',
-      cat: 'Adab',
-      ar: 'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ',
-      la: "Allaahumma inni a'uudzu bika minal khubutshi wal khabaa-its.",
-      id: 'Ya Allah, sesungguhnya aku berlindung kepada-Mu dari setan laki-laki dan setan perempuan.',
-    },
-    {
-      title: '9. Doa Keluar Kamar Mandi',
-      cat: 'Adab',
-      ar: 'غُفْرَانَكَ',
-      la: 'Ghufraanaka.',
-      id: 'Aku memohon ampunan-Mu.',
-    },
-    {
-      title: '10. Doa Melepas Pakaian',
-      cat: 'Adab',
-      ar: 'بِسْمِ اللَّهِ الَّذِي لَا إِلَهَ إِلَّا هُوَ',
-      la: 'Bismillaahil ladzii laa ilaaha illaa huwa.',
-      id: 'Dengan nama Allah yang tiada Tuhan selain Dia.',
-    },
-    {
-      title: '11. Doa Memakai Pakaian',
-      cat: 'Adab',
-      ar: 'الْحَمْدُ لِلَّهِ الَّذِي كَسَانِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ',
-      la: 'Alhamdulillahil ladzii kasaanii haadzaa wa razaqaniihi min ghairi haulin minnii wa laa quwwatin.',
-      id: 'Segala puji bagi Allah yang memberi pakaian ini padaku tanpa daya dan kekuatan dariku.',
-    },
-    {
-      title: '12. Doa Memakai Baju Baru',
-      cat: 'Adab',
-      ar: 'اللَّهُمَّ لَكَ الْحَمْدُ أَنْتَ كَسَوْتَنِيهِ',
-      la: 'Allahumma lakal hamdu anta kasautaniihi.',
-      id: 'Ya Allah, hanya milik-Mu segala puji, Engkaulah yang memakaikan pakaian ini kepadaku.',
-    },
-    {
-      title: '13. Doa Ketika Bercermin',
-      cat: 'Adab',
-      ar: 'اللَّهُمَّ كَمَا حَسَّنْتَ خَلْقِي فَحَسِّنْ خُلُقِي',
-      la: 'Allahumma kamaa hassanta khalqii fahassin khuluqii.',
-      id: 'Ya Allah, sebagaimana Engkau telah membaguskan penciptaanku, maka baguskanlah pula akhlakku.',
-    },
-    {
-      title: '14. Doa Sebelum Makan',
-      cat: 'Makan',
-      ar: 'اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا وَقِنَا عَذَابَ النَّارِ',
-      la: "Allaahumma baarik lanaa fiimaa razaqtana wa qinaa 'adzaaban naar.",
-      id: 'Ya Allah, berkahilah rezeki yang telah Engkau berikan dan peliharalah kami dari siksa neraka.',
-    },
-    {
-      title: '15. Doa Sesudah Makan',
-      cat: 'Makan',
-      ar: 'الحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا وَجَعَلَنَا مُسْلِمِينَ',
-      la: "Alhamdu lillaahil ladzii ath'amanaa wa saqana wa ja'alanaa muslimiin.",
-      id: 'Segala puji bagi Allah yang memberi makan dan minum, serta menjadikan kami muslim.',
-    },
-    {
-      title: '16. Doa Keluar Rumah',
-      cat: 'Perjalanan',
-      ar: 'بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ',
-      la: "Bismillaahi tawakkaltu 'alallahi, wa laa haula wa laa quwwata illa billaah.",
-      id: 'Dengan nama Allah, aku bertawakal kepada Allah, tiada daya melainkan dengan pertolongan-Nya.',
-    },
-    {
-      title: '17. Doa Naik Kendaraan',
-      cat: 'Perjalanan',
-      ar: 'سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ',
-      la: 'Subhaanal ladzii sakhkhara lanaa haadzaa wa maa kunnaa lahu muqriniin.',
-      id: 'Maha Suci Allah yang menundukkan kendaraan ini, padahal sebelumnya kami tidak mampu menguasainya.',
-    },
-    {
-      title: '18. Doa Masuk Rumah',
-      cat: 'Perlindungan',
-      ar: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ الْمَوْلِجِ وَخَيْرَ الْمَخْرَجِ',
-      la: 'Allaahumma inni as-aluka khairal mauliji wa khairal makhraji.',
-      id: 'Ya Allah, aku memohon sebaik-baik tempat masuk dan keluar.',
-    },
-    {
-      title: '19. Doa Sebelum Wudhu',
-      cat: 'Ibadah',
-      ar: 'بِسْمِ اللَّهِ',
-      la: 'Bismillah.',
-      id: 'Dengan menyebut nama Allah.',
-    },
-    {
-      title: '20. Doa Setelah Wudhu',
-      cat: 'Ibadah',
-      ar: 'أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ',
-      la: "Asyhadu allaa ilaaha illallaahu wahdahu laa syariikalahu, wa asyhadu anna muhammadan 'abduhu wa rasuuluhu.",
-      id: 'Aku bersaksi tiada Tuhan selain Allah yang Maha Esa tiada sekutu bagi-Nya, dan aku bersaksi Muhammad hamba dan utusan-Nya.',
-    },
-    {
-      title: '21. Doa Masuk Masjid',
-      cat: 'Ibadah',
-      ar: 'اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ',
-      la: 'Allahummaf tahlii abwaaba rahmatik.',
-      id: 'Ya Allah, bukakanlah untukku pintu-pintu rahmat-Mu.',
-    },
-    {
-      title: '22. Doa Keluar Masjid',
-      cat: 'Ibadah',
-      ar: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ',
-      la: 'Allahumma inni as-aluka min fadhlik.',
-      id: 'Ya Allah, sesungguhnya aku memohon karunia-Mu.',
-    },
-    {
-      title: '23. Doa Setelah Adzan',
-      cat: 'Ibadah',
-      ar: 'اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ، وَالصَّلَاةِ الْقَائِمَةِ، آتِ مُحَمَّدًا الْوَسِيلَةَ وَالْفَضِيلَةَ',
-      la: "Allahumma rabba haadzihid da'watit taammah, wash shalaatil qaa-imah, aati muhammadanil wasiilata wal fadhiilah.",
-      id: 'Ya Allah, Tuhan pemilik panggilan yang sempurna dan shalat yang didirikan, berilah Nabi Muhammad wasilah dan keutamaan.',
-    },
-    {
-      title: '24. Doa Usai Sholat Fardhu',
-      cat: 'Ibadah',
-      ar: 'أَسْتَغْفِرُ اللَّهَ، أَسْتَغْفِرُ اللَّهَ، أَسْتَغْفِرُ اللَّهَ',
-      la: 'Astaghfirullah (3x).',
-      id: 'Aku memohon ampun kepada Allah (dibaca 3 kali setelah salam).',
-    },
-    {
-      title: '25. Doa Lancar Bicara',
-      cat: 'Belajar',
-      ar: 'رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي وَاحْلُلْ عُقْدَةً مِنْ لِسَانِي يَفْقَهُوا قَوْلِي',
-      la: "Rabbisyrah lii shadrii wayassir lii amrii wahlul 'uqdatam min lisaanii yafqahuu qaulii.",
-      id: 'Ya Tuhanku, lapangkanlah dadaku, mudahkanlah urusanku, dan lepaskanlah kekakuan dari lidahku supaya mereka mengerti perkataanku.',
-    },
-    {
-      title: '26. Doa Sebelum Belajar',
-      cat: 'Belajar',
-      ar: 'رَبِّ زِدْنِي عِلْمًا وَارْزُقْنِي فَهْمًا',
-      la: "Rabbi zidnii 'ilman warzuqnii fahman.",
-      id: 'Ya Tuhanku, tambahkanlah ilmu kepadaku dan berilah aku pemahaman yang baik.',
-    },
-    {
-      title: '27. Doa Selesai Belajar',
-      cat: 'Belajar',
-      ar: 'اللَّهُمَّ أَرِنَا الْحَقَّ حَقًّا وَارْزُقْنَا اتِّبَاعَهُ',
-      la: "Allahumma arinal haqqa haqqan warzuqnat tibaa'ahu.",
-      id: 'Ya Allah, tunjukkanlah kepada kami yang benar itu benar dan berilah kami kemampuan mengikutinya.',
-    },
-    {
-      title: '28. Doa Ilmu Bermanfaat',
-      cat: 'Belajar',
-      ar: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا طَيِّبًا، وَعَمَلًا مُتَقَبَّلًا',
-      la: "Allaahumma inni as-aluka 'ilman naafi'an, wa rizqan thayyiban, wa 'amalan mutaqabbalan.",
-      id: 'Ya Allah, aku memohon ilmu yang bermanfaat, rezeki yang baik, dan amal yang diterima.',
-    },
-    {
-      title: '29. Doa Pembuka Majelis',
-      cat: 'Sosial',
-      ar: 'إِنَّ الْحَمْدَ لِلَّهِ نَحْمَدُهُ وَنَسْتَعِينُهُ وَنَسْتَغْفِرُهُ',
-      la: "Innal hamda lillaah nahmaduhu wa nasta'iinuhu wa nastaghfiruh.",
-      id: 'Sesungguhnya segala puji bagi Allah. Kami memuji-Nya, memohon pertolongan dan ampunan-Nya.',
-    },
-    {
-      title: '30. Doa Penutup Majelis',
-      cat: 'Sosial',
-      ar: 'سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ، أَشْهَدُ أَنْ لاَ إِلَهَ إِلاَّ أَنْتَ، أَسْتَغْفِرُكَ وَأَتُوبُ إِلَيْكَ',
-      la: 'Subhaanakallahumma wa bihamdika, asyhadu allaa ilaaha illaa anta, astaghfiruka wa atuubu ilaik.',
-      id: 'Maha Suci Engkau Ya Allah, aku bersaksi tiada Tuhan selain Engkau, aku memohon ampun dan bertaubat kepada-Mu.',
-    },
-    {
-      title: '31. Doa Penenang Hati',
-      cat: 'Permohonan',
-      ar: 'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ',
-      la: "Allahumma inni a'uudzu bika minal hammi wal hazan.",
-      id: 'Ya Allah, aku berlindung kepada-Mu dari rasa sedih dan gelisah.',
-    },
-    {
-      title: '32. Doa Pembuka Rezeki',
-      cat: 'Permohonan',
-      ar: 'اللَّهُمَّ اكْفِنِي بِحَلَالِكَ عَنْ حَرَامِكَ',
-      la: "Allahummakfinii bihalaalika 'an haraamika.",
-      id: 'Ya Allah, cukupkanlah aku dengan yang halal dari-Mu, sehingga terhindar dari yang haram.',
-    },
-    {
-      title: '33. Doa Selamat Dunia Akhirat',
-      cat: 'Permohonan',
-      ar: 'رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ',
-      la: "Rabbanaa aatinaa fid dunyaa hasanatan wa fil aakhirati hasanatan wa qinaa 'adzaaban naar.",
-      id: 'Ya Tuhan kami, berilah kami kebaikan di dunia dan di akhirat, serta lindungilah dari api neraka.',
-    },
-    {
-      title: '34. Doa Kedua Orang Tua',
-      cat: 'Permohonan',
-      ar: 'رَبِّ اغْفِرْ لِي وَلِوَالِدَيَّ وَارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا',
-      la: 'Rabbighfir lii wa liwaalidayya warhamhumaa kamaa rabbayaanii shagiiraa.',
-      id: 'Ya Tuhanku, ampunilah aku dan kedua orang tuaku, sayangilah mereka sebagaimana merawatku sewaktu kecil.',
-    },
-    {
-      title: '35. Niat Puasa Ramadhan',
-      cat: 'Ibadah',
-      ar: 'نَوَيْتُ صَوْمَ غَدٍ عَنْ أَدَاءِ فَرْضِ شَهْرِ رَمَضَانَ هَذِهِ السَّنَةِ لِلَّهِ تَعَالَى',
-      la: "Nawaitu shauma ghadin 'an adaa-i fardhi syahri ramadhaana haadzihis sanati lillaahi ta'aalaa.",
-      id: "Aku berniat puasa esok hari untuk menunaikan fardhu bulan Ramadhan tahun ini karena Allah Ta'ala.",
-    },
-    {
-      title: '36. Doa Turun Hujan',
-      cat: 'Alam',
-      ar: 'اللَّهُمَّ صَيِّبًا نَافِعًا',
-      la: "Allahumma shayyiban naafi'an.",
-      id: 'Ya Allah, turunkanlah hujan yang bermanfaat.',
-    },
-    {
-      title: '37. Doa Mendengar Petir',
-      cat: 'Alam',
-      ar: 'سُبْحَانَ الَّذِي يُسَبِّحُ الرَّعْدُ بِحَمْدِهِ وَالْمَلَائِكَةُ مِنْ خِيفَتِهِ',
-      la: "Subhaanal ladzii yusabbihur ra'du bihamdihi wal malaa-ikatu min khiifatih.",
-      id: 'Maha Suci Allah, yang petir bertasbih memuji-Nya dan malaikat juga karena takut kepada-Nya.',
-    },
-    {
-      title: '38. Doa Minta Kesembuhan',
-      cat: 'Kesehatan',
-      ar: 'اللَّهُمَّ رَبَّ النَّاسِ، مُذْهِبَ الْبَاسِ، اشْفِ أَنْتَ الشَّافِي لاَ شَافِىَ إِلاَّ أَنْتَ',
-      la: 'Allaahumma rabban naas, mudzhibal baasi, ishfi antas syaafi laa syafiya illaa anta.',
-      id: 'Ya Allah, Tuhan manusia, hilangkanlah penyakit ini, sembuhkanlah karena Engkau Maha Penyembuh.',
-    },
-    {
-      title: '39. Doa Untuk Orang Sakit',
-      cat: 'Kesehatan',
-      ar: 'أَسْأَلُ اللَّهَ الْعَظِيمَ رَبَّ الْعَرْشِ الْعَظِيمِ أَنْ يَشْفِيَكَ',
-      la: "As'alullahal 'azhiima rabbal 'arshil 'azhiimi an yashfiyak.",
-      id: 'Aku memohon kepada Allah Yang Maha Agung, Tuhan Arsy yang megah, agar menyembuhkanmu.',
-    },
-    {
-      title: '40. Doa Orang Meninggal',
-      cat: 'Kesehatan',
-      ar: 'إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ، اللَّهُمَّ أْجُرْنِي فِي مُصِيبَتِي وَأَخْلِفْ لِي خَيْرًا مِنْهَا',
-      la: "Innaa lillaahi wa innaa ilaihi raaji'uun. Allahumma' jurnii fii mushiibatii wa akhlif lii khairan minhaa.",
-      id: 'Sesungguhnya kami milik Allah dan kepada-Nya kami kembali. Ya Allah, berilah pahala dalam musibahku ini dan gantikan yang lebih baik.',
-    },
-  ],
   asmaulHusna: [
     { ar: 'الرَّحْمَنُ', la: 'Ar-Rahman', id: 'Yang Maha Pengasih' },
     { ar: 'الرَّحِيمُ', la: 'Ar-Rahim', id: 'Yang Maha Penyayang' },
@@ -596,6 +227,16 @@ const API = {
     } catch (e) {
       Utils.showToast('Gagal memuat detail', 'error')
       return null
+    }
+  },
+  async getDoaList() {
+    try {
+      const res = await fetch('https://equran.id/api/doa')
+      const data = await res.json()
+      return Array.isArray(data) ? data : data.data || []
+    } catch (e) {
+      Utils.showToast('Gagal memuat doa', 'error')
+      return []
     }
   },
 }
@@ -922,31 +563,28 @@ const Views = {
     const today = new Date().toISOString().split('T')[0]
     let qs = State.data.quiz
 
+    // Jika belum digenerate hari ini, panggil API Generator
     if (qs.date !== today) {
-      const shuffled = [...Database.quiz].sort(() => 0.5 - Math.random())
-      qs.date = today
-      qs.questions = shuffled.slice(0, 5)
-      qs.currentIdx = 0
-      qs.score = 0
-      qs.completed = false
-      State.save()
+      Utils.showLoader(
+        'app-content',
+        'Merakit Soal Kuis Hari Ini dari API (Surat, Doa, & Asmaul Husna)...',
+      )
+      app.generateDailyQuiz(today)
+      return // Hentikan render, render ulang akan dipanggil oleh app.generateDailyQuiz
     }
 
     if (qs.completed) {
       content.innerHTML = `
-                        <div class="fade-in min-h-[60vh] flex flex-col items-center justify-center max-w-lg mx-auto py-10 px-4 text-center">
-                            <div class="w-20 h-20 sm:w-24 sm:h-24 bg-brand-50 dark:bg-brand-500/10 text-brand-500 rounded-[1.5rem] sm:rounded-[2rem] flex items-center justify-center mb-5 sm:mb-6 shadow-inner">
-                                <i class="ph-fill ph-medal text-4xl sm:text-5xl"></i>
+                        <div class="fade-in min-h-[70vh] flex flex-col items-center justify-center max-w-lg mx-auto pt-4 text-center">
+                            <div class="w-full flex justify-start mb-8 absolute top-4 left-4 lg:static"><button onclick="app.navigate('home')" class="w-10 h-10 flex items-center justify-center rounded-xl glass-panel hover:bg-gray-300 dark:hover:bg-white/20"><i class="ph-bold ph-arrow-left text-lg"></i></button></div>
+                            <div class="w-24 h-24 bg-brand-50 dark:bg-brand-500/10 text-brand-500 rounded-[2rem] flex items-center justify-center mb-6 shadow-inner mx-auto"><i class="ph-fill ph-medal text-5xl"></i></div>
+                            <h2 class="font-display font-bold text-3xl mb-2">Kuis Selesai!</h2>
+                            <p class="text-gray-500 text-sm mb-6">Anda telah menyelesaikan kuis harian untuk hari ini.</p>
+                            <div class="glass-panel p-8 rounded-[2rem] w-full border border-brand-500/20 mb-8">
+                                <p class="text-xs font-bold uppercase tracking-widest text-brand-500 mb-2">Total Skor Kuis Anda</p>
+                                <p class="font-mono text-6xl font-bold mb-4">${qs.score}</p>
                             </div>
-                            <h2 class="font-display font-bold text-2xl sm:text-3xl mb-2">Kuis Selesai!</h2>
-                            <p class="text-gray-500 text-xs sm:text-sm mb-6 sm:mb-8">Tugas harian selesai, kembali besok untuk soal baru.</p>
-                            
-                            <div class="glass-panel p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem] w-full border border-brand-500/20 mb-6 sm:mb-8">
-                                <p class="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-brand-500 mb-2">Total Skor Anda</p>
-                                <p class="font-mono text-5xl sm:text-6xl font-bold mb-3 sm:mb-4">${qs.score} <span class="text-xl sm:text-2xl text-gray-400">/ 10</span></p>
-                                <p class="text-xs sm:text-sm font-semibold">${qs.score >= 8 ? 'Luar Biasa! Pemahaman yang sangat baik.' : qs.score >= 4 ? 'Bagus! Terus tingkatkan hafalan.' : 'Tetap semangat! Belajar lagi besok.'}</p>
-                            </div>
-                            <button onclick="app.navigate('home')" class="w-full sm:w-auto px-8 py-3.5 bg-gray-200 dark:bg-white/10 hover:bg-gray-300 transition-colors font-bold rounded-xl text-sm">Kembali ke Beranda</button>
+                            <button onclick="app.navigate('home')" class="px-8 py-3 bg-gray-100 dark:bg-white/10 hover:bg-gray-200 font-bold rounded-xl transition-colors">Kembali ke Beranda</button>
                         </div>
                     `
       return
@@ -956,42 +594,38 @@ const Views = {
     const progressWidth = (qs.currentIdx / 5) * 100
 
     content.innerHTML = `
-                    <div class="fade-in max-w-2xl mx-auto pt-2 sm:pt-4 pb-12">
-                        <div class="flex items-center justify-between mb-6 sm:mb-8">
-                            <button onclick="app.navigate('home')" class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl glass-panel hover:bg-gray-300 dark:hover:bg-white/20"><i class="ph-bold ph-arrow-left text-sm sm:text-lg"></i></button>
-                            <h2 class="text-base sm:text-lg font-display font-bold">Kuis Harian</h2>
-                            <div class="w-9 sm:w-10 text-center font-bold text-brand-500 font-mono text-xs sm:text-sm">${qs.currentIdx + 1}/5</div>
+                    <div class="fade-in max-w-2xl mx-auto pt-4 pb-12">
+                        <div class="flex items-center justify-between mb-8">
+                            <button onclick="app.navigate('home')" class="w-10 h-10 flex items-center justify-center rounded-xl glass-panel hover:bg-gray-300 dark:hover:bg-white/20"><i class="ph-bold ph-arrow-left text-lg"></i></button>
+                            <h2 class="text-lg font-display font-bold">Kuis Harian</h2>
+                            <div class="w-10 text-center font-bold text-brand-500 font-mono text-sm">${qs.currentIdx + 1}/5</div>
                         </div>
-
-                        <div class="w-full h-1.5 bg-gray-200 dark:bg-white/5 rounded-full mb-6 sm:mb-8 overflow-hidden"><div class="h-full bg-brand-500 rounded-full transition-all duration-500" style="width: ${progressWidth}%"></div></div>
-                        
-                        <div class="glass-panel p-5 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem] mb-5 sm:mb-6 shadow-sm border border-transparent">
-                            <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest bg-brand-50 dark:bg-brand-500/10 text-brand-500 px-3 py-1 rounded-full mb-3 sm:mb-4 inline-block">Pertanyaan ${qs.currentIdx + 1}</span>
-                            <h3 class="font-display font-bold text-lg sm:text-xl lg:text-2xl leading-relaxed">${q.q}</h3>
+                        <div class="w-full h-1.5 bg-gray-200 dark:bg-white/5 rounded-full mb-8 overflow-hidden"><div class="h-full bg-brand-500 rounded-full transition-all duration-500" style="width: ${progressWidth}%"></div></div>
+                        <div class="glass-panel p-6 sm:p-8 rounded-[2rem] mb-6 shadow-sm relative z-10">
+                            <span class="text-[10px] font-bold uppercase tracking-widest bg-brand-50 dark:bg-brand-500/10 text-brand-500 px-3 py-1 rounded-full mb-4 inline-block">Pertanyaan ${qs.currentIdx + 1}</span>
+                            <h3 class="font-display font-bold text-xl sm:text-2xl leading-relaxed whitespace-pre-line">${q.q}</h3>
                         </div>
-
                         <div class="space-y-3" id="quiz-options">
                             ${q.options
                               .map(
                                 (opt, i) => `
-                                <button onclick="app.answerQuiz(${i})" class="quiz-btn w-full text-left p-4 sm:p-5 rounded-xl sm:rounded-2xl glass-panel font-medium text-xs sm:text-sm hover:border-brand-500/50 hover:bg-white/50 dark:hover:bg-white/5 transition-all outline-none" data-idx="${i}">
-                                    <span class="font-bold text-gray-400 mr-2 sm:mr-3">${String.fromCharCode(65 + i)}.</span> ${opt}
+                                <button onclick="app.answerQuiz(${i})" class="quiz-btn w-full text-left p-5 rounded-2xl glass-panel font-medium text-sm sm:text-base hover:border-brand-500/50 hover:bg-white/50 dark:hover:bg-white/5 transition-all outline-none flex items-start" data-idx="${i}">
+                                    <span class="font-bold text-gray-400 mr-3 mt-0.5">${String.fromCharCode(65 + i)}.</span> <span class="${q.isArabicOption ? 'font-arabic text-xl' : ''}">${opt}</span>
                                 </button>
                             `,
                               )
                               .join('')}
                         </div>
-
-                        <div id="quiz-explanation" class="hidden slide-up glass-panel p-5 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] mt-6 border border-blue-500/30 bg-blue-50/50 dark:bg-blue-900/10">
+                        <div id="quiz-explanation" class="hidden slide-up glass-panel p-6 rounded-[2rem] mt-6 border border-blue-500/30 bg-blue-50/50 dark:bg-blue-900/10">
                             <div class="flex items-start gap-3">
-                                <i class="ph-fill ph-info text-xl sm:text-2xl text-blue-500 mt-1 flex-shrink-0"></i>
+                                <i class="ph-fill ph-info text-2xl text-blue-500 mt-1"></i>
                                 <div>
-                                    <h4 class="font-bold text-xs sm:text-sm text-blue-600 dark:text-blue-400 mb-1.5 sm:mb-2 uppercase tracking-widest">Pembahasan</h4>
-                                    <p class="text-xs sm:text-sm leading-relaxed text-gray-700 dark:text-gray-300">${q.exp}</p>
+                                    <h4 class="font-bold text-sm text-blue-600 dark:text-blue-400 mb-2 uppercase tracking-widest">Pembahasan</h4>
+                                    <p class="text-sm leading-relaxed text-gray-700 dark:text-gray-300">${q.exp}</p>
                                 </div>
                             </div>
-                            <button onclick="app.nextQuizQuestion()" class="mt-5 sm:mt-6 w-full py-3 sm:py-3.5 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl shadow-lg transition-colors text-xs sm:text-sm">
-                                ${qs.currentIdx === 4 ? 'Lihat Hasil Akhir' : 'Lanjut ke Soal Berikutnya'}
+                            <button onclick="app.nextQuizQuestion()" class="mt-6 w-full py-3.5 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl shadow-lg transition-colors">
+                                ${qs.currentIdx === 4 ? 'Selesaikan Kuis' : 'Lanjut ke Soal Berikutnya'}
                             </button>
                         </div>
                     </div>
@@ -1000,84 +634,120 @@ const Views = {
 
   renderAsmaulHusna() {
     const content = document.getElementById('app-content')
+
+    // FIX: Assigned the HTML directly to content.innerHTML using backticks instead of an array
     content.innerHTML = `
-                    <div class="fade-in max-w-5xl mx-auto pb-10">
-                        <div class="sticky top-[72px] lg:top-0 bg-[#f4f4f5]/90 dark:bg-[#09090b]/90 backdrop-blur-xl z-20 py-3 sm:py-4 mb-6 sm:mb-8 flex items-center gap-3 sm:gap-4 px-1 sm:px-2">
-                            <button onclick="app.navigate('home')" class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-gray-200/50 dark:bg-white/10 hover:bg-gray-300 transition-colors"><i class="ph-bold ph-arrow-left text-sm sm:text-lg"></i></button>
-                            <div>
-                                <h2 class="text-xl sm:text-2xl font-display font-bold">Asmaul Husna</h2>
-                                <p class="text-[9px] sm:text-[11px] font-semibold text-gray-500 uppercase tracking-widest mt-0.5">Lengkap 99 Nama Allah</p>
-                            </div>
+        <div class="fade-in max-w-5xl mx-auto pb-10">
+            <div class="sticky top-[72px] lg:top-0 bg-[#f4f4f5]/90 dark:bg-[#09090b]/90 backdrop-blur-xl z-20 py-3 sm:py-4 mb-6 sm:mb-8 flex items-center gap-3 sm:gap-4 px-1 sm:px-2">
+                <button onclick="app.navigate('home')" class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-gray-200/50 dark:bg-white/10 hover:bg-gray-300 transition-colors"><i class="ph-bold ph-arrow-left text-sm sm:text-lg"></i></button>
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-display font-bold">Asmaul Husna</h2>
+                    <p class="text-[9px] sm:text-[11px] font-semibold text-gray-500 uppercase tracking-widest mt-0.5">Lengkap 99 Nama Allah</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
+                ${Database.asmaulHusna
+                  .map(
+                    (item, index) => `
+                    <div class="glass-panel p-4 sm:p-5 sm:p-6 rounded-[1.25rem] sm:rounded-[1.5rem] text-center slide-up hover-lift border border-transparent hover:border-amber-500/30 relative overflow-hidden" style="animation-delay: ${Math.min(index * 0.015, 0.4)}s">
+                        <div class="absolute top-0 right-0 w-8 h-8 sm:w-10 sm:h-10 bg-amber-500/10 rounded-bl-[1.25rem] sm:rounded-bl-[1.5rem] flex items-start justify-end p-2 sm:p-2.5">
+                            <span class="text-[9px] sm:text-[10px] font-bold text-amber-600 dark:text-amber-400 opacity-80">${index + 1}</span>
                         </div>
-                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
-                            ${Database.asmaulHusna
-                              .map(
-                                (item, index) => `
-                                <div class="glass-panel p-4 sm:p-5 sm:p-6 rounded-[1.25rem] sm:rounded-[1.5rem] text-center slide-up hover-lift border border-transparent hover:border-amber-500/30 relative overflow-hidden" style="animation-delay: ${Math.min(index * 0.015, 0.4)}s">
-                                    <div class="absolute top-0 right-0 w-8 h-8 sm:w-10 sm:h-10 bg-amber-500/10 rounded-bl-[1.25rem] sm:rounded-bl-[1.5rem] flex items-start justify-end p-2 sm:p-2.5">
-                                        <span class="text-[9px] sm:text-[10px] font-bold text-amber-600 dark:text-amber-400 opacity-80">${index + 1}</span>
-                                    </div>
-                                    <div class="text-2xl sm:text-3xl font-arabic text-amber-500 mb-3 sm:mb-4 mt-2" style="line-height: 1.6;">${item.ar}</div>
-                                    <h3 class="font-bold font-display text-sm sm:text-base">${item.la}</h3>
-                                    <p class="text-[9px] sm:text-[10px] font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-1.5 sm:mt-2 line-clamp-2" title="${item.id}">${item.id}</p>
-                                </div>
-                            `,
-                              )
-                              .join('')}
-                        </div>
+                        <div class="text-2xl sm:text-3xl font-arabic text-amber-500 mb-3 sm:mb-4 mt-2" style="line-height: 1.6;">${item.ar}</div>
+                        <h3 class="font-bold font-display text-sm sm:text-base">${item.la}</h3>
+                        <p class="text-[9px] sm:text-[10px] font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-1.5 sm:mt-2 line-clamp-2" title="${item.id}">${item.id}</p>
                     </div>
-                `
+                `,
+                  )
+                  .join('')}
+            </div>
+        </div>
+    `
   },
 
-  renderDoaHarian() {
+  async renderDoaHarian() {
     const content = document.getElementById('app-content')
-    content.innerHTML = `
-                    <div class="fade-in max-w-5xl mx-auto pb-10">
-                        <div class="sticky top-[72px] lg:top-0 bg-[#f4f4f5]/90 dark:bg-[#09090b]/90 backdrop-blur-xl z-20 py-3 sm:py-4 mb-4 sm:mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 px-1 sm:px-2">
-                            <div class="flex items-center gap-3 sm:gap-4">
-                                <button onclick="app.navigate('home')" class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-gray-200/50 dark:bg-white/10 hover:bg-gray-300 transition-colors flex-shrink-0"><i class="ph-bold ph-arrow-left text-sm sm:text-lg"></i></button>
-                                <div>
-                                    <h2 class="text-xl sm:text-2xl font-display font-bold">Doa Harian</h2>
-                                    <p class="text-[9px] sm:text-[11px] font-semibold text-gray-500 uppercase tracking-widest mt-0.5">Koleksi 40 Doa Lengkap</p>
-                                </div>
-                            </div>
-                            <div class="relative w-full sm:w-64 lg:w-72">
-                                <i class="ph-bold ph-magnifying-glass absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                                <input type="text" id="search-doa" placeholder="Cari doa..." class="w-full glass-panel py-2.5 sm:py-3 pl-9 sm:pl-11 pr-3 sm:pr-4 rounded-xl outline-none focus:ring-2 focus:ring-brand-500/50 bg-white/50 dark:bg-black/20 text-xs sm:text-sm placeholder-gray-400 shadow-sm">
-                            </div>
-                        </div>
+    Utils.showLoader('app-content', 'Memuat Koleksi Doa API...')
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4" id="doa-grid">
-                            ${Database.doa
-                              .map(
-                                (doa, index) => `
-                                <div class="glass-panel p-5 sm:p-6 rounded-[1.25rem] sm:rounded-[1.5rem] flex flex-col justify-between hover-lift doa-card group cursor-pointer border border-transparent hover:border-brand-500/30" data-title="${doa.title.toLowerCase()}" onclick="app.showDoaDetail('${encodeURIComponent(JSON.stringify(doa))}')">
-                                    <div>
-                                        <div class="flex justify-between items-start mb-2 sm:mb-3">
-                                            <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-brand-50 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400">${doa.cat}</span>
-                                            <i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-brand-500 transition-colors text-sm"></i>
-                                        </div>
-                                        <h3 class="font-display font-bold text-base sm:text-lg mb-2 sm:mb-3 group-hover:text-brand-500 transition-colors">${doa.title}</h3>
-                                        <p class="arabic-text text-right text-lg sm:text-xl font-arabic line-clamp-2 text-gray-800 dark:text-gray-200 mb-2 sm:mb-3">${doa.ar}</p>
-                                    </div>
-                                    <p class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 line-clamp-2 italic">${doa.id}</p>
-                                </div>
-                            `,
-                              )
-                              .join('')}
+    const doaList = await API.getDoaList()
+
+    if (!doaList || doaList.length === 0) {
+      // Note: Ensure 'Views.renderDoaHarian()' is the correct path,
+      // it might need to be 'app.renderDoaHarian()' depending on your structure.
+      content.innerHTML = `
+      <div class="fade-in flex flex-col items-center justify-center py-20">
+        <p class="text-gray-500 mb-4">Gagal terhubung ke server (API Doa).</p>
+        <button onclick="Views.renderDoaHarian()" class="px-5 py-2.5 bg-brand-500 text-white rounded-xl font-bold shadow-lg">Coba Lagi</button>
+      </div>`
+      return
+    }
+
+    content.innerHTML = `
+    <div class="fade-in max-w-5xl mx-auto pb-10">
+        <div class="sticky top-[72px] lg:top-0 bg-[#f4f4f5]/90 dark:bg-[#09090b]/90 backdrop-blur-xl z-20 py-3 sm:py-4 mb-4 sm:mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 px-1 sm:px-2">
+            <div class="flex items-center gap-3 sm:gap-4">
+                <button onclick="app.navigate('home')" class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-gray-200/50 dark:bg-white/10 hover:bg-gray-300 transition-colors flex-shrink-0">
+                    <i class="ph-bold ph-arrow-left text-sm sm:text-lg"></i>
+                </button>
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-display font-bold">Doa Harian</h2>
+                    <p class="text-[9px] sm:text-[11px] font-semibold text-gray-500 uppercase tracking-widest mt-0.5">Sumber Data: eQuran API</p>
+                </div>
+            </div>
+            <div class="relative w-full sm:w-64 lg:w-72">
+                <i class="ph-bold ph-magnifying-glass absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                <input type="text" id="search-doa" placeholder="Cari doa..." class="w-full glass-panel py-2.5 sm:py-3 pl-9 sm:pl-11 pr-3 sm:pr-4 rounded-xl outline-none focus:ring-2 focus:ring-brand-500/50 bg-white/50 dark:bg-black/20 text-xs sm:text-sm placeholder-gray-400 shadow-sm border border-white/40 dark:border-white/5">
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4" id="doa-grid">
+            ${doaList
+              .map((doa, index) => {
+                const title = doa.doa || doa.nama || 'Doa'
+                const arabic = doa.ayat || doa.ar || ''
+                const latin = doa.latin || doa.tr || ''
+                const artinya = doa.artinya || doa.idn || ''
+
+                const passData = {
+                  title,
+                  cat: 'Harian',
+                  ar: arabic,
+                  tr: latin,
+                  idn: artinya,
+                }
+
+                // FIX: Escape single quotes to prevent breaking the onclick HTML attribute
+                const safePassData = encodeURIComponent(
+                  JSON.stringify(passData),
+                ).replace(/'/g, '%27')
+
+                return `
+                <div class="glass-panel p-5 sm:p-6 rounded-[1.25rem] sm:rounded-[1.5rem] flex flex-col justify-between hover-lift doa-card group cursor-pointer border border-transparent hover:border-brand-500/30 slide-up" data-title="${title.toLowerCase()}" onclick="app.showDoaDetail('${safePassData}')" style="animation-delay: ${Math.min(index * 0.01, 0.3)}s">
+                    <div>
+                        <div class="flex justify-between items-start mb-2 sm:mb-3">
+                            <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-brand-50 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400">Harian</span>
+                            <i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-brand-500 transition-colors text-sm"></i>
                         </div>
+                        <h3 class="font-display font-bold text-base sm:text-lg mb-2 sm:mb-3 group-hover:text-brand-500 transition-colors">${title}</h3>
+                        <p class="arabic-text text-right text-lg sm:text-xl font-arabic line-clamp-2 text-gray-800 dark:text-gray-200 mb-2 sm:mb-3">${arabic}</p>
+                        
+                        <!-- FIX: Removed arabic-text & text-right, changed to standard left-aligned styling -->
+                        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 italic line-clamp-2 mb-2 sm:mb-3">${latin}</p>
                     </div>
+                    <p class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 line-clamp-2">${artinya}</p>
+                </div>
                 `
+              })
+              .join('')}
+        </div>
+    </div>
+  `
+
     document.getElementById('search-doa').addEventListener('input', (e) => {
       const term = e.target.value.toLowerCase()
-      document
-        .querySelectorAll('.doa-card')
-        .forEach(
-          (c) =>
-            (c.style.display = c.dataset.title.includes(term)
-              ? 'flex'
-              : 'none'),
-        )
+      document.querySelectorAll('.doa-card').forEach((c) => {
+        c.style.display = c.dataset.title.includes(term) ? 'flex' : 'none'
+      })
     })
   },
 
@@ -1222,55 +892,209 @@ const app = {
   },
 
   // Kuis Logic
+  async generateDailyQuiz(todayDate) {
+    try {
+      // Fetch paralel ke 3 API sekaligus
+      const [doaRes, surahRes, asmaulRes] = await Promise.all([
+        fetch('https://equran.id/api/doa').then((r) => r.json()),
+        fetch('https://equran.id/api/v2/surat').then((r) => r.json()),
+        fetch('https://api.aladhan.com/v1/asmaAlHusna').then((r) => r.json()),
+      ])
+
+      const doaData = doaRes
+      const surahData = surahRes.data
+      const asmaulData = asmaulRes.data
+
+      let pool = []
+
+      // 1. Generate Soal dari API Doa Harian
+      for (let i = 0; i < 10; i++) {
+        const doa = doaData[Math.floor(Math.random() * doaData.length)]
+        // Pilih 3 jawaban salah (distractor)
+        const wrongs = doaData
+          .filter((d) => d.doa !== doa.doa)
+          .sort(() => 0.5 - Math.random())
+          .slice(0, 3)
+          .map((d) => d.doa)
+        const options = [doa.doa, ...wrongs].sort(() => 0.5 - Math.random())
+        pool.push({
+          q: `Potongan doa berikut:\n\n<span class="font-arabic text-2xl text-brand-500 leading-loose">${doa.ayat}</span>\n\nadalah bagian dari doa...`,
+          options: options,
+          ans: options.indexOf(doa.doa),
+          isArabicOption: false,
+          exp: `Doa tersebut dibaca untuk ${doa.doa}. Artinya: "${doa.artinya}"`,
+        })
+      }
+
+      // 2. Generate Soal dari API Surah
+      for (let i = 0; i < 10; i++) {
+        const surah = surahData[Math.floor(Math.random() * surahData.length)]
+        if (Math.random() > 0.5) {
+          // Tipe Pertanyaan Arti
+          const wrongs = surahData
+            .filter((s) => s.arti !== surah.arti)
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 3)
+            .map((s) => s.arti)
+          const options = [surah.arti, ...wrongs].sort(
+            () => 0.5 - Math.random(),
+          )
+          pool.push({
+            q: `Apa arti dari nama Surah ${surah.namaLatin}?`,
+            options: options,
+            ans: options.indexOf(surah.arti),
+            isArabicOption: false,
+            exp: `Surah ${surah.namaLatin} adalah surah ke-${surah.nomor} yang diturunkan di ${surah.tempatTurun} dengan arti "${surah.arti}".`,
+          })
+        } else {
+          // Tipe Pertanyaan Jumlah Ayat
+          const wrongs = [
+            surah.jumlahAyat + Math.floor(Math.random() * 10 + 1),
+            Math.max(1, surah.jumlahAyat - Math.floor(Math.random() * 10 + 1)),
+            surah.jumlahAyat + Math.floor(Math.random() * 20 + 5),
+          ]
+          const options = [
+            surah.jumlahAyat.toString(),
+            ...wrongs.map(String),
+          ].sort(() => 0.5 - Math.random())
+          pool.push({
+            q: `Berapa jumlah keseluruhan ayat dalam Surah ${surah.namaLatin}?`,
+            options: options,
+            ans: options.indexOf(surah.jumlahAyat.toString()),
+            isArabicOption: false,
+            exp: `Surah ${surah.namaLatin} terdiri dari ${surah.jumlahAyat} ayat.`,
+          })
+        }
+      }
+
+      // 3. Generate Soal dari API Asmaul Husna
+      for (let i = 0; i < 10; i++) {
+        const asma = asmaulData[Math.floor(Math.random() * asmaulData.length)]
+        if (Math.random() > 0.5) {
+          // Tebak Tulisan Arab dari Transliterasi
+          const wrongs = asmaulData
+            .filter((a) => a.name !== asma.name)
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 3)
+            .map((a) => a.name)
+          const options = [asma.name, ...wrongs].sort(() => 0.5 - Math.random())
+          pool.push({
+            q: `Asmaul Husna urutan ke-${asma.number} dibaca ${asma.transliteration}. Penulisan Arabnya adalah...`,
+            options: options,
+            ans: options.indexOf(asma.name),
+            isArabicOption: true, // Gunakan font arabic di tombol pilihan ganda
+            exp: `Asmaul Husna ke-${asma.number} adalah ${asma.name} yang dibaca ${asma.transliteration} (Maha ${asma.en.meaning}).`,
+          })
+        } else {
+          // Tebak Transliterasi dari Tulisan Arab
+          const wrongs = asmaulData
+            .filter((a) => a.transliteration !== asma.transliteration)
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 3)
+            .map((a) => a.transliteration)
+          const options = [asma.transliteration, ...wrongs].sort(
+            () => 0.5 - Math.random(),
+          )
+          pool.push({
+            q: `Bagaimana cara membaca Asmaul Husna <span class="font-arabic text-2xl text-amber-500">${asma.name}</span> ?`,
+            options: options,
+            ans: options.indexOf(asma.transliteration),
+            isArabicOption: false,
+            exp: `Asmaul Husna tersebut dibaca ${asma.transliteration}, berada di urutan ke-${asma.number}.`,
+          })
+        }
+      }
+
+      // Acak total kolam soal dan pilih 5 saja untuk Kuis Hari Ini
+      pool = pool.sort(() => 0.5 - Math.random()).slice(0, 5)
+
+      State.data.quiz = {
+        date: todayDate,
+        questions: pool,
+        currentIdx: 0,
+        score: 0,
+        completed: false,
+      }
+      State.save()
+
+      // Render ulang halaman Quiz
+      this.navigate('quiz')
+    } catch (e) {
+      console.error('Error Fetching Quiz APIs:', e)
+      Utils.showToast(
+        'Gagal memuat API Kuis. Pastikan internet Anda aktif.',
+        'error',
+      )
+    }
+  },
+
   answerQuiz(selectedIndex) {
     const qs = State.data.quiz
     const currentQuestion = qs.questions[qs.currentIdx]
     const btns = document.querySelectorAll('.quiz-btn')
     btns.forEach((btn) => btn.classList.add('option-disabled'))
-    if (selectedIndex === currentQuestion.ans) {
+    const isCorrect = selectedIndex === currentQuestion.ans
+    if (isCorrect) {
       State.data.quiz.score += 2
       btns[selectedIndex].classList.add('option-correct')
-      Utils.showToast('+2 Poin! Benar', 'success')
+      Utils.showToast('+2 Poin! Jawaban Benar', 'success')
     } else {
       btns[selectedIndex].classList.add('option-wrong')
       btns[currentQuestion.ans].classList.add('!border-brand-500', '!border-2')
       Utils.showToast('Jawaban Salah', 'error')
     }
     State.save()
-    document.getElementById('quiz-explanation').classList.remove('hidden')
-    document
-      .getElementById('quiz-explanation')
-      .scrollIntoView({ behavior: 'smooth', block: 'end' })
+    const expl = document.getElementById('quiz-explanation')
+    expl.classList.remove('hidden')
+    expl.scrollIntoView({ behavior: 'smooth', block: 'end' })
   },
+
   nextQuizQuestion() {
     State.data.quiz.currentIdx++
     if (State.data.quiz.currentIdx >= 5) State.data.quiz.completed = true
     State.save()
     this.navigate('quiz')
   },
-
+  
   // Doa Modal
   showDoaDetail(encodedDoa) {
     const doa = JSON.parse(decodeURIComponent(encodedDoa))
     const overlay = document.getElementById('modal-overlay')
     const content = document.getElementById('modal-content')
+
+    // Simpan string perintah close ke dalam variabel agar lebih rapi
+    // Kita tambahkan style.display = 'none' karena sebelumnya diset menjadi 'flex'
+    const closeScript =
+      "document.getElementById('modal-overlay').classList.add('hidden'); document.getElementById('modal-overlay').style.display='none';"
+
     content.innerHTML = `
-                    <div class="flex justify-between items-start mb-5 sm:mb-6">
-                        <div>
-                            <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-brand-50 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 mb-2 inline-block">${doa.cat}</span>
-                            <h3 class="font-display font-bold text-xl sm:text-2xl">${doa.title}</h3>
-                        </div>
-                        <button onclick="document.getElementById('modal-overlay').classList.add('hidden')" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center bg-gray-100 dark:bg-white/10 rounded-full hover:text-red-500 transition-colors"><i class="ph-bold ph-x text-xs sm:text-sm"></i></button>
-                    </div>
-                    <div class="space-y-4 sm:space-y-6">
-                        <div class="glass-panel p-4 sm:p-6 rounded-xl sm:rounded-2xl text-center bg-brand-50/20 dark:bg-black/20">
-                            <p class="arabic-text text-2xl sm:text-3xl font-arabic text-brand-600 dark:text-brand-400 leading-loose">${doa.ar}</p>
-                        </div>
-                        <div><h4 class="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Latin</h4><p class="text-xs sm:text-sm font-semibold text-brand-500 italic">${doa.la}</p></div>
-                        <div><h4 class="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Artinya</h4><p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 leading-relaxed">${doa.id}</p></div>
-                    </div>
-                    <button onclick="document.getElementById('modal-overlay').classList.add('hidden')" class="mt-6 sm:mt-8 w-full py-3 sm:py-3.5 bg-brand-500 hover:bg-brand-600 text-white rounded-xl font-bold text-xs sm:text-sm shadow-lg">Tutup</button>
-                `
+        <div class="flex justify-between items-start mb-5 sm:mb-6">
+            <div>
+                <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-brand-50 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 mb-2 inline-block">${doa.cat}</span>
+                <h3 class="font-display font-bold text-xl sm:text-2xl">${doa.title}</h3>
+            </div>
+            <button onclick="${closeScript}" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center bg-gray-100 dark:bg-white/10 rounded-full hover:text-red-500 transition-colors">
+                <i class="ph-bold ph-x text-xs sm:text-sm"></i>
+            </button>
+        </div>
+        <div class="space-y-4 sm:space-y-6">
+            <div class="glass-panel p-4 sm:p-6 rounded-xl sm:rounded-2xl text-center bg-brand-50/20 dark:bg-black/20">
+                <p class="arabic-text text-2xl sm:text-3xl font-arabic text-brand-600 dark:text-brand-400 leading-loose">${doa.ar}</p>
+            </div>
+            <div>
+                <h4 class="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Latin</h4>
+                <p class="text-xs sm:text-sm font-semibold text-brand-500 italic">${doa.tr}</p>
+            </div>
+            <div>
+                <h4 class="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Artinya</h4>
+                <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 leading-relaxed">${doa.idn}</p>
+            </div>
+        </div>
+        <button onclick="${closeScript}" class="mt-6 sm:mt-8 w-full py-3 sm:py-3.5 bg-brand-500 hover:bg-brand-600 text-white rounded-xl font-bold text-xs sm:text-sm shadow-lg">
+            Tutup
+        </button>
+    `
+
     overlay.classList.remove('hidden')
     overlay.style.display = 'flex'
     setTimeout(() => {
@@ -1432,6 +1256,10 @@ const app = {
   showGenerateQRModal() {
     const overlay = document.getElementById('modal-overlay')
     const content = document.getElementById('modal-content')
+
+    const closeScript =
+      "document.getElementById('modal-overlay').classList.add('hidden'); document.getElementById('modal-overlay').style.display='none';"
+
     const syncData = {
       lr: State.data.lastRead,
       qs: State.data.quiz.score || 0,
@@ -1446,7 +1274,7 @@ const app = {
     content.innerHTML = `
                     <div class="flex justify-between items-start mb-4 sm:mb-6">
                         <div><h3 class="font-display font-bold text-lg sm:text-2xl">QR Sinkronisasi</h3><p class="text-[10px] sm:text-xs text-gray-500 mt-1">Pindai dari perangkat baru.</p></div>
-                        <button onclick="overlay.classList.add('hidden')" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center bg-gray-100 dark:bg-white/10 rounded-full hover:text-red-500"><i class="ph-bold ph-x text-xs sm:text-sm"></i></button>
+                        <button onclick="${closeScript}" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center bg-gray-100 dark:bg-white/10 rounded-full hover:text-red-500"><i class="ph-bold ph-x text-xs sm:text-sm"></i></button>
                     </div>
                     <div class="flex justify-center bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl mb-4 sm:mb-6 mx-auto w-fit">
                         <div id="qrcode-container"></div>
@@ -1475,10 +1303,14 @@ const app = {
   showScannerModal() {
     const overlay = document.getElementById('modal-overlay')
     const content = document.getElementById('modal-content')
+
+    const closeScript =
+      "document.getElementById('modal-overlay').classList.add('hidden'); document.getElementById('modal-overlay').style.display='none';"
+
     content.innerHTML = `
                     <div class="flex justify-between items-start mb-4">
                         <div><h3 class="font-display font-bold text-lg sm:text-xl">Kamera QR</h3></div>
-                        <button onclick="app.closeScannerModal()" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center bg-gray-100 dark:bg-white/10 rounded-full hover:text-red-500"><i class="ph-bold ph-x text-xs sm:text-sm"></i></button>
+                        <button onclick="${closeScript}" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center bg-gray-100 dark:bg-white/10 rounded-full hover:text-red-500"><i class="ph-bold ph-x text-xs sm:text-sm"></i></button>
                     </div>
                     <div class="w-full bg-black rounded-xl sm:rounded-2xl overflow-hidden min-h-[250px] sm:min-h-[300px] flex flex-col items-center justify-center relative aspect-square max-w-sm mx-auto shadow-inner border border-white/10" id="reader-container">
                         <div id="reader" style="width: 100%; height: 100%;"></div>
@@ -1511,6 +1343,7 @@ const app = {
       this.html5QrcodeScanner = null
     }
     document.getElementById('modal-overlay').classList.add('hidden')
+    document.getElementById('modal-overlay').style.display = 'none'
   },
   processQRData(jsonStr) {
     try {
@@ -1532,13 +1365,17 @@ const app = {
   confirmReset() {
     const overlay = document.getElementById('modal-overlay')
     const content = document.getElementById('modal-content')
+
+    const closeScript =
+      "document.getElementById('modal-overlay').classList.add('hidden'); document.getElementById('modal-overlay').style.display='none';"
+
     content.innerHTML = `
                     <div class="text-center p-2 sm:p-4">
                         <div class="w-12 h-12 sm:w-16 sm:h-16 bg-red-100 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4"><i class="ph-bold ph-warning text-2xl sm:text-3xl"></i></div>
                         <h3 class="font-display font-bold text-xl sm:text-2xl mb-2">Hapus Data?</h3>
                         <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-6 sm:mb-8">Semua riwayat bacaan dan skor akan dihapus permanen.</p>
                         <div class="flex gap-2 sm:gap-3">
-                            <button onclick="document.getElementById('modal-overlay').classList.add('hidden')" class="flex-1 py-3 sm:py-3.5 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-gray-300 font-bold rounded-lg sm:rounded-xl text-xs sm:text-sm">Batal</button>
+                            <button onclick="${closeScript}" class="flex-1 py-3 sm:py-3.5 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-gray-300 font-bold rounded-lg sm:rounded-xl text-xs sm:text-sm">Batal</button>
                             <button onclick="localStorage.clear(); location.reload();" class="flex-1 py-3 sm:py-3.5 bg-red-500 text-white font-bold rounded-lg sm:rounded-xl shadow-lg shadow-red-500/30 text-xs sm:text-sm">Ya, Hapus</button>
                         </div>
                     </div>
