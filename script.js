@@ -153,7 +153,7 @@ const State = {
       const { lat, lng } = this.data.location
       const dateStr = new Date().toISOString().split('T')[0]
       const res = await fetch(
-        `https://api.aladhan.com/v1/timings/${dateStr}?latitude=${lat}&longitude=${lng}&method=10`,
+        `https://api.aladhan.com/v1/timings/${dateStr}?latitude=${lat}&longitude=${lng}&method=20`,
       )
       const json = await res.json()
       if (json && json.code === 200) {
