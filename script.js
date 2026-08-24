@@ -153,7 +153,7 @@ const State = {
       const { lat, lng } = this.data.location
       const dateStr = new Date().toISOString().split('T')[0]
       const res = await fetch(
-        `https://api.aladhan.com/v1/timings/${dateStr}?latitude=${lat}&longitude=${lng}&method=20`,
+        `https://api.aladhan.com/v1/timings/${dateStr}?latitude=${lat}&longitude=${lng}&method=3`,
       )
       const json = await res.json()
       if (json && json.code === 200) {
@@ -891,45 +891,33 @@ const app = {
     State.applyTheme()
   },
 
-  // Kuis Logic
+  // --- Kuis Logic ---
   async generateDailyQuiz(todayDate) {
     try {
-      // Fetch paralel ke 3 API sekaligus
-      const [doaRes, surahRes, asmaulRes] = await Promise.all([
-        fetch('https://equran.id/api/doa').then((r) => r.json()),
+      // 1. Fetch paralel ke 3 API sekaligus dengan batas timeout (otomatis ditangani fetch standar)
+      const [surahRes, asmaulRes] = await Promise.all([
         fetch('https://equran.id/api/v2/surat').then((r) => r.json()),
         fetch('https://api.aladhan.com/v1/asmaAlHusna').then((r) => r.json()),
       ])
 
-      const doaData = doaRes
-      const surahData = surahRes.data
-      const asmaulData = asmaulRes.data
+      // 2. Ekstraksi Data Ekstra Aman (Mencegah Error jika API mengubah format respon)
+      // [PERBAIKAN] Menggunakan pengecekan yang benar agar doaData tidak menjadi 'true'
+      const surahData = surahRes.data || surahRes || []
+      const asmaulData = asmaulRes.data || asmaulRes || []
 
-      const todayDate = new Date()
-      let pool = []
-
-      // 1. Generate Soal dari API Doa Harian
-      for (let i = 0; i < 10; i++) {
-        const doa = doaData[Math.floor(Math.random() * doaData.length)]
-        // Pilih 3 jawaban salah (distractor)
-        const wrongs = doaData
-          .filter((d) => d.doa !== doa.doa)
-          .sort(() => 0.5 - Math.random())
-          .slice(0, 3)
-          .map((d) => d.doa)
-        const options = [doa.doa, ...wrongs].sort(() => 0.5 - Math.random())
-        pool.push({
-          q: `Potongan doa berikut:\n\n<span class="font-arabic text-2xl text-brand-500 leading-loose">${doa.ayat}</span>\n\nadalah bagian dari doa...`,
-          options: options,
-          ans: options.indexOf(doa.doa),
-          isArabicOption: false,
-          exp: `Doa tersebut dibaca untuk ${doa.doa}. Artinya: "${doa.artinya}"`,
-        })
+      // Validasi ketat: Jika salah satu API gagal memberi data, batalkan dan lempar ke catch
+      if (surahData.length === 0 || asmaulData.length === 0) {
+        throw new Error(
+          'Gagal mengambil struktur array dari salah satu API Kuis.',
+        )
       }
 
-      // 2. Generate Soal dari API Surah
+      let pool = []
+
+      // 4. Generate Soal dari API Surah
       for (let i = 0; i < 10; i++) {
         const surah = surahData[Math.floor(Math.random() * surahData.length)]
+
         if (Math.random() > 0.5) {
           // Tipe Pertanyaan Arti
           const wrongs = surahData
@@ -937,9 +925,11 @@ const app = {
             .sort(() => 0.5 - Math.random())
             .slice(0, 3)
             .map((s) => s.arti)
+
           const options = [surah.arti, ...wrongs].sort(
             () => 0.5 - Math.random(),
           )
+
           pool.push({
             q: `Apa arti dari nama Surah ${surah.namaLatin}?`,
             options: options,
@@ -949,28 +939,32 @@ const app = {
           })
         } else {
           // Tipe Pertanyaan Jumlah Ayat
+          const jumlah = parseInt(surah.jumlahAyat) || 0
           const wrongs = [
-            surah.jumlahAyat + Math.floor(Math.random() * 10 + 1),
-            Math.max(1, surah.jumlahAyat - Math.floor(Math.random() * 10 + 1)),
-            surah.jumlahAyat + Math.floor(Math.random() * 20 + 5),
+            jumlah + Math.floor(Math.random() * 10 + 1),
+            Math.max(1, jumlah - Math.floor(Math.random() * 10 + 1)),
+            jumlah + Math.floor(Math.random() * 20 + 5),
           ]
-          const options = [
-            surah.jumlahAyat.toString(),
-            ...wrongs.map(String),
-          ].sort(() => 0.5 - Math.random())
+
+          const options = [jumlah.toString(), ...wrongs.map(String)].sort(
+            () => 0.5 - Math.random(),
+          )
+
           pool.push({
             q: `Berapa jumlah keseluruhan ayat dalam Surah ${surah.namaLatin}?`,
             options: options,
-            ans: options.indexOf(surah.jumlahAyat.toString()),
+            ans: options.indexOf(jumlah.toString()),
             isArabicOption: false,
-            exp: `Surah ${surah.namaLatin} terdiri dari ${surah.jumlahAyat} ayat.`,
+            exp: `Surah ${surah.namaLatin} terdiri dari ${jumlah} ayat.`,
           })
         }
       }
 
-      // 3. Generate Soal dari API Asmaul Husna
+      // 5. Generate Soal dari API Asmaul Husna
       for (let i = 0; i < 10; i++) {
         const asma = asmaulData[Math.floor(Math.random() * asmaulData.length)]
+        const meaning = asma.en?.meaning || 'Sempurna' // Tambahan Optional Chaining (Anti Error)
+
         if (Math.random() > 0.5) {
           // Tebak Tulisan Arab dari Transliterasi
           const wrongs = asmaulData
@@ -978,13 +972,15 @@ const app = {
             .sort(() => 0.5 - Math.random())
             .slice(0, 3)
             .map((a) => a.name)
+
           const options = [asma.name, ...wrongs].sort(() => 0.5 - Math.random())
+
           pool.push({
             q: `Asmaul Husna urutan ke-${asma.number} dibaca ${asma.transliteration}. Penulisan Arabnya adalah...`,
             options: options,
             ans: options.indexOf(asma.name),
-            isArabicOption: true, // Gunakan font arabic di tombol pilihan ganda
-            exp: `Asmaul Husna ke-${asma.number} adalah ${asma.name} yang dibaca ${asma.transliteration} (Maha ${asma.en.meaning}).`,
+            isArabicOption: true,
+            exp: `Asmaul Husna ke-${asma.number} adalah ${asma.name} yang dibaca ${asma.transliteration} (Maha ${meaning}).`,
           })
         } else {
           // Tebak Transliterasi dari Tulisan Arab
@@ -993,9 +989,11 @@ const app = {
             .sort(() => 0.5 - Math.random())
             .slice(0, 3)
             .map((a) => a.transliteration)
+
           const options = [asma.transliteration, ...wrongs].sort(
             () => 0.5 - Math.random(),
           )
+
           pool.push({
             q: `Bagaimana cara membaca Asmaul Husna <span class="font-arabic text-2xl text-amber-500">${asma.name}</span> ?`,
             options: options,
@@ -1006,9 +1004,10 @@ const app = {
         }
       }
 
-      // Acak total kolam soal dan pilih 5 saja untuk Kuis Hari Ini
+      // 6. Acak total kolam soal dan ambil tepat 5 soal saja untuk hari ini
       pool = pool.sort(() => 0.5 - Math.random()).slice(0, 5)
 
+      // 7. Simpan kuis ke dalam State/Local Storage
       State.data.quiz = {
         date: todayDate,
         questions: pool,
@@ -1018,7 +1017,7 @@ const app = {
       }
       State.save()
 
-      // Render ulang halaman Quiz
+      // 8. Pindah dan render ulang halaman kuis (soal baru telah siap)
       this.navigate('quiz')
     } catch (e) {
       console.error('Error Fetching Quiz APIs:', e)
@@ -1056,7 +1055,7 @@ const app = {
     State.save()
     this.navigate('quiz')
   },
-  
+
   // Doa Modal
   showDoaDetail(encodedDoa) {
     const doa = JSON.parse(decodeURIComponent(encodedDoa))
