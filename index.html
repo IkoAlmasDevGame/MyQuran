@@ -183,10 +183,6 @@
             opacity: 1;
          }
 
-         .compass-transition {
-            transition: transform 0.2s ease-out;
-         }
-
          /* Quiz States */
          .option-correct {
             background-color: #10b981 !important;
@@ -220,43 +216,49 @@
 
    <body class="antialiased pb-[88px] lg:pb-0 lg:pl-72 flex flex-col min-h-screen">
 
-<div id="installBanner" class="install-banner" style="display: none;">
-  <p>Install TegaTech for a better experience!</p>
-  <button id="installBtn">Install Now</button>
-  <button id="dismissBtn" onclick="this.parentNode.style.display='none'">Maybe Later</button>
-</div>
+      <div id="installBanner" class="install-banner" style="display: none;">
+         <p>Install MyQuran for a better experience!</p>
+         <button id="installBtn">Install Now</button>
+         <button id="dismissBtn" onclick="this.parentNode.style.display='none'">Maybe Later</button>
+      </div>
 
-   <!-- Desktop Sidebar -->
-    <aside class="fixed inset-y-0 left-0 w-72 glass-panel hidden lg:flex flex-col z-40 border-r border-gray-200 dark:border-white/5">
-        <div class="p-8 flex items-center gap-4">
-            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-400 flex items-center justify-center text-white shadow-lg shadow-brand-500/20">
-                <i class="ph-fill ph-book-open text-2xl text-gray-400"></i>
+      <!-- Desktop Sidebar -->
+      <aside
+         class="fixed inset-y-0 left-0 w-72 glass-panel hidden lg:flex flex-col z-40 border-r border-gray-200 dark:border-white/5">
+         <div class="p-8 flex items-center gap-4">
+            <div
+               class="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-400 flex items-center justify-center text-white shadow-lg shadow-brand-500/20">
+               <i class="ph-fill ph-book-open text-2xl text-gray-400"></i>
             </div>
             <h1 class="font-display font-bold text-2xl tracking-tight">MyQur'an</h1>
-        </div>
-        <nav class="flex-1 px-6 py-4 space-y-3" id="desktop-nav"></nav>
-        <div class="p-6">
-            <button onclick="app.toggleTheme()" class="w-full flex items-center justify-between px-5 py-4 rounded-2xl btn-depth glass-panel hover:bg-white/50 dark:hover:bg-white/5 text-gray-600 dark:text-gray-300 transition-colors">
-                <span class="font-medium text-sm">Tema Tampilan</span>
-                <i class="ph-fill ph-moon text-xl dark:hidden text-gray-400"></i>
-                <i class="ph-fill ph-sun text-xl hidden dark:block text-brand-400"></i>
+         </div>
+         <nav class="flex-1 px-6 py-4 space-y-3" id="desktop-nav"></nav>
+         <div class="p-6">
+            <button onclick="app.toggleTheme()"
+               class="w-full flex items-center justify-between px-5 py-4 rounded-2xl btn-depth glass-panel hover:bg-white/50 dark:hover:bg-white/5 text-gray-600 dark:text-gray-300 transition-colors">
+               <span class="font-medium text-sm">Tema Tampilan</span>
+               <i class="ph-fill ph-moon text-xl dark:hidden text-gray-400"></i>
+               <i class="ph-fill ph-sun text-xl hidden dark:block text-brand-400"></i>
             </button>
-        </div>
-    </aside>
+         </div>
+      </aside>
 
-    <!-- Mobile Header -->
-    <header class="lg:hidden sticky top-0 z-30 glass-panel border-b border-gray-200 dark:border-white/5 px-5 pt-safe flex justify-between items-center h-[72px]">
-        <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-brand-400 flex items-center justify-center text-white shadow-md">
+      <!-- Mobile Header -->
+      <header
+         class="lg:hidden sticky top-0 z-30 glass-panel border-b border-gray-200 dark:border-white/5 px-5 pt-safe flex justify-between items-center h-[72px]">
+         <div class="flex items-center gap-3">
+            <div
+               class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-brand-400 flex items-center justify-center text-white shadow-md">
                <i class="ph-fill ph-book-open text-lg text-gray-600"></i>
             </div>
             <h1 class="font-display font-bold text-xl tracking-tight">MyQur'an</h1>
-        </div>
-        <button onclick="app.toggleTheme()" class="w-10 h-10 rounded-full btn-depth flex items-center justify-center text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-white/5">
+         </div>
+         <button onclick="app.toggleTheme()"
+            class="w-10 h-10 rounded-full btn-depth flex items-center justify-center text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-white/5">
             <i class="ph-fill ph-moon text-lg dark:hidden"></i>
             <i class="ph-fill ph-sun text-lg hidden dark:block"></i>
-        </button>
-    </header>
+         </button>
+      </header>
 
       <!-- Main Content -->
       <main id="app-content" class="flex-1 w-full max-w-5xl mx-auto p-4 sm:p-6 lg:p-10 relative"></main>
@@ -279,14 +281,23 @@
                class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-red-500 bg-gray-100 dark:bg-white/5 rounded-full transition-colors"><i
                   class="ph-bold ph-x text-sm"></i></button>
          </div>
-         <div class="flex items-center justify-center gap-6 mt-4">
-            <button id="btn-audio-prev" class="text-gray-400 hover:text-brand-500 transition-colors"><i
+         <!-- Player Controls (Loop, Prev, Play/Pause, Next, Download) -->
+         <div class="flex items-center justify-center gap-4 sm:gap-5 mt-4">
+            <button id="btn-audio-loop" onclick="audioManager.toggleLoop()"
+               class="text-gray-400 hover:text-brand-500 transition-colors" title="Mode Hafalan (Loop)"><i
+                  class="ph-fill ph-repeat text-xl" id="icon-loop"></i></button>
+            <button id="btn-audio-prev" onclick="audioManager.playPrev()"
+               class="text-gray-400 hover:text-brand-500 transition-colors" title="Ayat Sebelumnya"><i
                   class="ph-fill ph-skip-back text-xl"></i></button>
             <button id="btn-audio-play" onclick="audioManager.togglePlay()"
                class="w-14 h-14 rounded-full bg-brand-500 text-white shadow-lg shadow-brand-500/30 flex items-center justify-center hover:scale-105 transition-transform"><i
                   class="ph-fill ph-play text-2xl" id="icon-play-pause"></i></button>
-            <button id="btn-audio-next" class="text-gray-400 hover:text-brand-500 transition-colors"><i
+            <button id="btn-audio-next" onclick="audioManager.playNext()"
+               class="text-gray-400 hover:text-brand-500 transition-colors" title="Ayat Selanjutnya"><i
                   class="ph-fill ph-skip-forward text-xl"></i></button>
+            <a id="btn-audio-dl" href="#" target="_blank" download
+               class="text-gray-400 hover:text-brand-500 transition-colors" title="Unduh Audio"><i
+                  class="ph-fill ph-download-simple text-xl"></i></a>
          </div>
          <div class="mt-5 flex items-center gap-3 text-[11px] font-medium text-gray-500 font-sans">
             <span id="audio-current" class="w-8 text-right">0:00</span>
@@ -307,52 +318,54 @@
       <div id="modal-overlay"
          class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[70] hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
          <div id="modal-content"
-            class="glass-panel w-full max-w-lg rounded-[2rem] p-5 sm:p-8 transform scale-95 transition-transform duration-300 border border-white/10 relative shadow-2xl max-h-[90vh] overflow-y-auto w-full">
+            class="glass-panel w-full max-w-lg rounded-[2rem] p-5 sm:p-8 transform scale-95 transition-transform duration-300 border border-white/10 relative shadow-2xl max-h-[90vh] overflow-y-auto">
          </div>
       </div>
 
       <!-- ================= JAVASCRIPT ENGINE ================= -->
       <script src="script.js"></script>
+      <script src="service-worker.js"></script>
+      <script src="main.js"></script>
       <script lang="javascript">
          let deferredPrompt;
 
-// Listen for the beforeinstallprompt event
-window.addEventListener('beforeinstallprompt', (e) => {
-  // Prevent Chrome 67+ from automatically showing the prompt
-  e.preventDefault();
+         // Listen for the beforeinstallprompt event
+         window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent Chrome 67+ from automatically showing the prompt
+            e.preventDefault();
 
-  // Stash the event so it can be triggered later
-  deferredPrompt = e;
+            // Stash the event so it can be triggered later
+            deferredPrompt = e;
 
-  // Update UI to notify the user they can add to home screen
-  const installBanner = document.getElementById('installBanner');
-  if (installBanner) {
-    installBanner.style.display = 'flex';
-  }
-});
+            // Update UI to notify the user they can add to home screen
+            const installBanner = document.getElementById('installBanner');
+            if (installBanner) {
+               installBanner.style.display = 'flex';
+            }
+         });
 
-// Setup the install button click handler
-document.getElementById('installBtn').addEventListener('click', async () => {
-  // Hide our user interface that shows our install button
-  document.getElementById('installBanner').style.display = 'none';
+         // Setup the install button click handler
+         document.getElementById('installBtn').addEventListener('click', async () => {
+            // Hide our user interface that shows our install button
+            document.getElementById('installBanner').style.display = 'none';
 
-  // Show the prompt
-  deferredPrompt.prompt();
+            // Show the prompt
+            deferredPrompt.prompt();
 
-  // Wait for the user to respond to the prompt
-  const { outcome } = await deferredPrompt.userChoice;
-  console.log(`User response: ${outcome}`);
+            // Wait for the user to respond to the prompt
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User response: ${outcome}`);
 
-  // We've used the prompt, and can't use it again, throw it away
-  deferredPrompt = null;
-});
+            // We've used the prompt, and can't use it again, throw it away
+            deferredPrompt = null;
+         });
 
-// Listen for successful installation
-window.addEventListener('appinstalled', (event) => {
-  console.log('App was installed to home screen');
-  // Analytics tracking
-  gtag('event', 'pwa_installed');
-});
+         // Listen for successful installation
+         window.addEventListener('appinstalled', (event) => {
+            console.log('App was installed to home screen');
+            // Analytics tracking
+            gtag('event', 'pwa_installed');
+         });
       </script>
    </body>
 

@@ -110,6 +110,8 @@ const State = {
   data: {
     theme: 'dark',
     fontSize: 32,
+    qari: '05', // Default Qari: Misyari Rasyid Al-Afasi
+    loopAudio: false, // Default Loop disabled
     lastRead: null,
     bookmarks: [],
     notes: {},
@@ -254,19 +256,36 @@ const audioManager = {
   isPlaying: false,
   init() {
     this.player.addEventListener('timeupdate', () => this.updateProgress())
-    this.player.addEventListener('ended', () => this.playNext())
+    this.player.addEventListener('ended', () => {
+      if (State.data.loopAudio) {
+        this.player.currentTime = 0
+        this.player.play()
+      } else {
+        this.playNext()
+      }
+    })
     this.player.addEventListener('loadedmetadata', () => {
       this.durationTxt.textContent = this.formatTime(this.player.duration)
     })
+    this.updateLoopUI()
   },
   play(url, title, playlist = [], index = 0) {
     this.currentPlaylist = playlist
     this.currentIndex = index
     this.titleEl.textContent = title
     this.player.src = url
+
+    // Set link download di audio player
+    const dlBtn = document.getElementById('btn-audio-dl')
+    if (dlBtn) {
+      dlBtn.href = url
+      dlBtn.download = `${title}.mp3`
+    }
+
     this.player.play()
     this.isPlaying = true
     this.updateUI()
+    this.updateLoopUI()
     this.show()
   },
   togglePlay() {
@@ -286,6 +305,28 @@ const audioManager = {
     } else {
       this.isPlaying = false
       this.updateUI()
+    }
+  },
+  playPrev() {
+    if (this.currentPlaylist.length > 0 && this.currentIndex > 0) {
+      this.currentIndex--
+      const prev = this.currentPlaylist[this.currentIndex]
+      this.play(prev.url, prev.title, this.currentPlaylist, this.currentIndex)
+    }
+  },
+  toggleLoop() {
+    app.toggleGlobalLoop(!State.data.loopAudio)
+  },
+  updateLoopUI() {
+    const loopIcon = document.getElementById('icon-loop')
+    if (loopIcon) {
+      if (State.data.loopAudio) {
+        loopIcon.classList.remove('text-gray-400')
+        loopIcon.classList.add('text-brand-500')
+      } else {
+        loopIcon.classList.add('text-gray-400')
+        loopIcon.classList.remove('text-brand-500')
+      }
     }
   },
   updateProgress() {
@@ -506,8 +547,10 @@ const Views = {
       app.navigate('surahList')
       return
     }
+
+    const qari = State.data.qari || '05' // Ambil qari yang dipilih
     const playlist = surah.ayat.map((a) => ({
-      url: a.audio['05'],
+      url: a.audio[qari],
       title: `${surah.namaLatin} - Ayat ${a.nomorAyat}`,
     }))
 
@@ -519,7 +562,7 @@ const Views = {
                                 <h2 class="font-display font-bold text-lg sm:text-xl">${surah.namaLatin}</h2>
                                 <p class="text-[9px] sm:text-[11px] font-semibold text-gray-500 uppercase mt-0.5">${surah.arti} • ${surah.jumlahAyat} Ayat</p>
                             </div>
-                            <button onclick="audioManager.play('${surah.audioFull['05']}', 'Murottal ${surah.namaLatin}')" class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-500/10 text-brand-500 hover:scale-105 transition-transform"><i class="ph-fill ph-play text-base sm:text-lg"></i></button>
+                            <button onclick="audioManager.play('${surah.audioFull[qari]}', 'Murottal ${surah.namaLatin}')" class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-500/10 text-brand-500 hover:scale-105 transition-transform"><i class="ph-fill ph-play text-base sm:text-lg"></i></button>
                         </div>
                         
                         ${surahId !== 9 ? `<div class="text-center py-8 sm:py-12 mb-6 sm:mb-10"><p class="font-arabic text-3xl sm:text-4xl lg:text-5xl text-brand-600 dark:text-brand-400 leading-loose">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p></div>` : ''}
@@ -532,8 +575,9 @@ const Views = {
                                     <div class="flex justify-between items-start mb-4 sm:mb-6">
                                         <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-gray-100 dark:bg-white/5 flex items-center justify-center font-bold text-xs sm:text-sm shadow-inner">${ayah.nomorAyat}</div>
                                         <div class="flex gap-1.5 sm:gap-2 bg-gray-50/50 dark:bg-black/20 p-1 sm:p-1.5 rounded-xl sm:rounded-2xl">
-                                            <button onclick="app.playAyah('${ayah.audio['05']}', '${surah.namaLatin} - Ayat ${ayah.nomorAyat}', ${encodeURIComponent(JSON.stringify(playlist))}, ${index})" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg sm:rounded-xl text-gray-400 hover:text-brand-500 hover:bg-white/50 dark:hover:bg-white/5 transition-colors"><i class="ph-fill ph-play text-xs sm:text-sm"></i></button>
-                                            <button onclick="app.setLastRead(${surahId}, ${ayah.nomorAyat}, '${surah.namaLatin}')" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg sm:rounded-xl text-gray-400 hover:text-brand-500 hover:bg-white/50 dark:hover:bg-white/5 transition-colors"><i class="ph-fill ph-flag-banner text-xs sm:text-sm"></i></button>
+                                            <a href="${ayah.audio[qari]}" target="_blank" download title="Unduh Murottal Ayat" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg sm:rounded-xl text-gray-400 hover:text-brand-500 hover:bg-white/50 dark:hover:bg-white/5 transition-colors"><i class="ph-fill ph-download-simple text-xs sm:text-sm"></i></a>
+                                            <button onclick="app.playAyah('${ayah.audio[qari]}', '${surah.namaLatin} - Ayat ${ayah.nomorAyat}', ${encodeURIComponent(JSON.stringify(playlist))}, ${index})" title="Putar Murottal Ayat" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg sm:rounded-xl text-gray-400 hover:text-brand-500 hover:bg-white/50 dark:hover:bg-white/5 transition-colors"><i class="ph-fill ph-play text-xs sm:text-sm"></i></button>
+                                            <button onclick="app.setLastRead(${surahId}, ${ayah.nomorAyat}, '${surah.namaLatin}')" title="Tandai Terakhir Dibaca" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg sm:rounded-xl text-gray-400 hover:text-brand-500 hover:bg-white/50 dark:hover:bg-white/5 transition-colors"><i class="ph-fill ph-flag-banner text-xs sm:text-sm"></i></button>
                                         </div>
                                     </div>
                                     <div class="arabic-text font-arabic text-right mb-6 sm:mb-8 text-gray-900 dark:text-white" style="font-size: var(--arabic-size, 32px);">${ayah.teksArab}</div>
@@ -563,14 +607,13 @@ const Views = {
     const today = new Date().toISOString().split('T')[0]
     let qs = State.data.quiz
 
-    // Jika belum digenerate hari ini, panggil API Generator
     if (qs.date !== today) {
       Utils.showLoader(
         'app-content',
         'Merakit Soal Kuis Hari Ini dari API (Surat, Doa, & Asmaul Husna)...',
       )
       app.generateDailyQuiz(today)
-      return // Hentikan render, render ulang akan dipanggil oleh app.generateDailyQuiz
+      return
     }
 
     if (qs.completed) {
@@ -634,35 +677,33 @@ const Views = {
 
   renderAsmaulHusna() {
     const content = document.getElementById('app-content')
-
-    // FIX: Assigned the HTML directly to content.innerHTML using backticks instead of an array
     content.innerHTML = `
-        <div class="fade-in max-w-5xl mx-auto pb-10">
-            <div class="sticky top-[72px] lg:top-0 bg-[#f4f4f5]/90 dark:bg-[#09090b]/90 backdrop-blur-xl z-20 py-3 sm:py-4 mb-6 sm:mb-8 flex items-center gap-3 sm:gap-4 px-1 sm:px-2">
-                <button onclick="app.navigate('home')" class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-gray-200/50 dark:bg-white/10 hover:bg-gray-300 transition-colors"><i class="ph-bold ph-arrow-left text-sm sm:text-lg"></i></button>
-                <div>
-                    <h2 class="text-xl sm:text-2xl font-display font-bold">Asmaul Husna</h2>
-                    <p class="text-[9px] sm:text-[11px] font-semibold text-gray-500 uppercase tracking-widest mt-0.5">Lengkap 99 Nama Allah</p>
-                </div>
-            </div>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
-                ${Database.asmaulHusna
-                  .map(
-                    (item, index) => `
-                    <div class="glass-panel p-4 sm:p-5 sm:p-6 rounded-[1.25rem] sm:rounded-[1.5rem] text-center slide-up hover-lift border border-transparent hover:border-amber-500/30 relative overflow-hidden" style="animation-delay: ${Math.min(index * 0.015, 0.4)}s">
-                        <div class="absolute top-0 right-0 w-8 h-8 sm:w-10 sm:h-10 bg-amber-500/10 rounded-bl-[1.25rem] sm:rounded-bl-[1.5rem] flex items-start justify-end p-2 sm:p-2.5">
-                            <span class="text-[9px] sm:text-[10px] font-bold text-amber-600 dark:text-amber-400 opacity-80">${index + 1}</span>
+                    <div class="fade-in max-w-5xl mx-auto pb-10">
+                        <div class="sticky top-[72px] lg:top-0 bg-[#f4f4f5]/90 dark:bg-[#09090b]/90 backdrop-blur-xl z-20 py-3 sm:py-4 mb-6 sm:mb-8 flex items-center gap-3 sm:gap-4 px-1 sm:px-2">
+                            <button onclick="app.navigate('home')" class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-gray-200/50 dark:bg-white/10 hover:bg-gray-300 transition-colors"><i class="ph-bold ph-arrow-left text-sm sm:text-lg"></i></button>
+                            <div>
+                                <h2 class="text-xl sm:text-2xl font-display font-bold">Asmaul Husna</h2>
+                                <p class="text-[9px] sm:text-[11px] font-semibold text-gray-500 uppercase tracking-widest mt-0.5">Lengkap 99 Nama Allah</p>
+                            </div>
                         </div>
-                        <div class="text-2xl sm:text-3xl font-arabic text-amber-500 mb-3 sm:mb-4 mt-2" style="line-height: 1.6;">${item.ar}</div>
-                        <h3 class="font-bold font-display text-sm sm:text-base">${item.la}</h3>
-                        <p class="text-[9px] sm:text-[10px] font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-1.5 sm:mt-2 line-clamp-2" title="${item.id}">${item.id}</p>
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
+                            ${Database.asmaulHusna
+                              .map(
+                                (item, index) => `
+                                <div class="glass-panel p-4 sm:p-5 sm:p-6 rounded-[1.25rem] sm:rounded-[1.5rem] text-center slide-up hover-lift border border-transparent hover:border-amber-500/30 relative overflow-hidden" style="animation-delay: ${Math.min(index * 0.015, 0.4)}s">
+                                    <div class="absolute top-0 right-0 w-8 h-8 sm:w-10 sm:h-10 bg-amber-500/10 rounded-bl-[1.25rem] sm:rounded-bl-[1.5rem] flex items-start justify-end p-2 sm:p-2.5">
+                                        <span class="text-[9px] sm:text-[10px] font-bold text-amber-600 dark:text-amber-400 opacity-80">${index + 1}</span>
+                                    </div>
+                                    <div class="text-2xl sm:text-3xl font-arabic text-amber-500 mb-3 sm:mb-4 mt-2" style="line-height: 1.6;">${item.ar}</div>
+                                    <h3 class="font-bold font-display text-sm sm:text-base">${item.la}</h3>
+                                    <p class="text-[9px] sm:text-[10px] font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-1.5 sm:mt-2 line-clamp-2" title="${item.id}">${item.id}</p>
+                                </div>
+                            `,
+                              )
+                              .join('')}
+                        </div>
                     </div>
-                `,
-                  )
-                  .join('')}
-            </div>
-        </div>
-    `
+                `
   },
 
   async renderDoaHarian() {
@@ -670,84 +711,68 @@ const Views = {
     Utils.showLoader('app-content', 'Memuat Koleksi Doa API...')
 
     const doaList = await API.getDoaList()
-
     if (!doaList || doaList.length === 0) {
-      // Note: Ensure 'Views.renderDoaHarian()' is the correct path,
-      // it might need to be 'app.renderDoaHarian()' depending on your structure.
       content.innerHTML = `
-      <div class="fade-in flex flex-col items-center justify-center py-20">
-        <p class="text-gray-500 mb-4">Gagal terhubung ke server (API Doa).</p>
-        <button onclick="Views.renderDoaHarian()" class="px-5 py-2.5 bg-brand-500 text-white rounded-xl font-bold shadow-lg">Coba Lagi</button>
-      </div>`
+                        <div class="fade-in flex flex-col items-center justify-center py-20">
+                            <p class="text-gray-500 mb-4">Gagal terhubung ke server (API Doa).</p>
+                            <button onclick="app.navigate('doaHarian')" class="px-5 py-2.5 bg-brand-500 text-white rounded-xl font-bold shadow-lg">Coba Lagi</button>
+                        </div>`
       return
     }
 
     content.innerHTML = `
-    <div class="fade-in max-w-5xl mx-auto pb-10">
-        <div class="sticky top-[72px] lg:top-0 bg-[#f4f4f5]/90 dark:bg-[#09090b]/90 backdrop-blur-xl z-20 py-3 sm:py-4 mb-4 sm:mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 px-1 sm:px-2">
-            <div class="flex items-center gap-3 sm:gap-4">
-                <button onclick="app.navigate('home')" class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-gray-200/50 dark:bg-white/10 hover:bg-gray-300 transition-colors flex-shrink-0">
-                    <i class="ph-bold ph-arrow-left text-sm sm:text-lg"></i>
-                </button>
-                <div>
-                    <h2 class="text-xl sm:text-2xl font-display font-bold">Doa Harian</h2>
-                    <p class="text-[9px] sm:text-[11px] font-semibold text-gray-500 uppercase tracking-widest mt-0.5">Sumber Data: eQuran API</p>
-                </div>
-            </div>
-            <div class="relative w-full sm:w-64 lg:w-72">
-                <i class="ph-bold ph-magnifying-glass absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                <input type="text" id="search-doa" placeholder="Cari doa..." class="w-full glass-panel py-2.5 sm:py-3 pl-9 sm:pl-11 pr-3 sm:pr-4 rounded-xl outline-none focus:ring-2 focus:ring-brand-500/50 bg-white/50 dark:bg-black/20 text-xs sm:text-sm placeholder-gray-400 shadow-sm border border-white/40 dark:border-white/5">
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4" id="doa-grid">
-            ${doaList
-              .map((doa, index) => {
-                const title = doa.doa || doa.nama || 'Doa'
-                const arabic = doa.ayat || doa.ar || ''
-                const latin = doa.latin || doa.tr || ''
-                const artinya = doa.artinya || doa.idn || ''
-
-                const passData = {
-                  title,
-                  cat: 'Harian',
-                  ar: arabic,
-                  tr: latin,
-                  idn: artinya,
-                }
-
-                // FIX: Escape single quotes to prevent breaking the onclick HTML attribute
-                const safePassData = encodeURIComponent(
-                  JSON.stringify(passData),
-                ).replace(/'/g, '%27')
-
-                return `
-                <div class="glass-panel p-5 sm:p-6 rounded-[1.25rem] sm:rounded-[1.5rem] flex flex-col justify-between hover-lift doa-card group cursor-pointer border border-transparent hover:border-brand-500/30 slide-up" data-title="${title.toLowerCase()}" onclick="app.showDoaDetail('${safePassData}')" style="animation-delay: ${Math.min(index * 0.01, 0.3)}s">
-                    <div>
-                        <div class="flex justify-between items-start mb-2 sm:mb-3">
-                            <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-brand-50 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400">Harian</span>
-                            <i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-brand-500 transition-colors text-sm"></i>
+                    <div class="fade-in max-w-5xl mx-auto pb-10">
+                        <div class="sticky top-[72px] lg:top-0 bg-[#f4f4f5]/90 dark:bg-[#09090b]/90 backdrop-blur-xl z-20 py-3 sm:py-4 mb-4 sm:mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 px-1 sm:px-2">
+                            <div class="flex items-center gap-3 sm:gap-4">
+                                <button onclick="app.navigate('home')" class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-gray-200/50 dark:bg-white/10 hover:bg-gray-300 transition-colors flex-shrink-0"><i class="ph-bold ph-arrow-left text-sm sm:text-lg"></i></button>
+                                <div><h2 class="text-xl sm:text-2xl font-display font-bold">Doa Harian</h2><p class="text-[9px] sm:text-[11px] font-semibold text-gray-500 uppercase tracking-widest mt-0.5">Sumber Data: eQuran API</p></div>
+                            </div>
+                            <div class="relative w-full sm:w-64 lg:w-72">
+                                <i class="ph-bold ph-magnifying-glass absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                                <input type="text" id="search-doa" placeholder="Cari doa..." class="w-full glass-panel py-2.5 sm:py-3 pl-9 sm:pl-11 pr-3 sm:pr-4 rounded-xl outline-none focus:ring-2 focus:ring-brand-500/50 bg-white/50 dark:bg-black/20 text-xs sm:text-sm placeholder-gray-400 shadow-sm border border-white/40 dark:border-white/5">
+                            </div>
                         </div>
-                        <h3 class="font-display font-bold text-base sm:text-lg mb-2 sm:mb-3 group-hover:text-brand-500 transition-colors">${title}</h3>
-                        <p class="arabic-text text-right text-lg sm:text-xl font-arabic line-clamp-2 text-gray-800 dark:text-gray-200 mb-2 sm:mb-3">${arabic}</p>
-                        
-                        <!-- FIX: Removed arabic-text & text-right, changed to standard left-aligned styling -->
-                        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 italic line-clamp-2 mb-2 sm:mb-3">${latin}</p>
-                    </div>
-                    <p class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 line-clamp-2">${artinya}</p>
-                </div>
-                `
-              })
-              .join('')}
-        </div>
-    </div>
-  `
-
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4" id="doa-grid">
+                            ${doaList
+                              .map((doa, index) => {
+                                const title = doa.doa || doa.nama || 'Doa'
+                                const arabic = doa.ayat || doa.ar || ''
+                                const latin = doa.latin || doa.tr || ''
+                                const artinya = doa.artinya || doa.idn || ''
+                                const passData = {
+                                  title,
+                                  cat: 'Harian',
+                                  ar: arabic,
+                                  tr: latin,
+                                  idn: artinya,
+                                }
+                                const safePassData = encodeURIComponent(
+                                  JSON.stringify(passData),
+                                ).replace(/'/g, '%27')
+                                return `
+                                <div class="glass-panel p-5 sm:p-6 rounded-[1.25rem] sm:rounded-[1.5rem] flex flex-col justify-between hover-lift doa-card group cursor-pointer border border-transparent hover:border-brand-500/30 slide-up" data-title="${title.toLowerCase()}" onclick="app.showDoaDetail('${safePassData}')" style="animation-delay: ${Math.min(index * 0.01, 0.3)}s">
+                                    <div>
+                                        <div class="flex justify-between items-start mb-2 sm:mb-3"><span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-brand-50 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400">Harian</span><i class="ph-bold ph-arrow-up-right text-gray-400 group-hover:text-brand-500 transition-colors text-sm"></i></div>
+                                        <h3 class="font-display font-bold text-base sm:text-lg mb-2 sm:mb-3 group-hover:text-brand-500 transition-colors">${title}</h3>
+                                        <p class="arabic-text text-right text-lg sm:text-xl font-arabic line-clamp-2 text-gray-800 dark:text-gray-200 mb-2 sm:mb-3">${arabic}</p>
+                                        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 italic line-clamp-2 mb-2 sm:mb-3">${latin}</p>
+                                    </div>
+                                    <p class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 line-clamp-2">${artinya}</p>
+                                </div>`
+                              })
+                              .join('')}
+                        </div>
+                    </div>`
     document.getElementById('search-doa').addEventListener('input', (e) => {
       const term = e.target.value.toLowerCase()
-      document.querySelectorAll('.doa-card').forEach((c) => {
-        c.style.display = c.dataset.title.includes(term) ? 'flex' : 'none'
-      })
+      document
+        .querySelectorAll('.doa-card')
+        .forEach(
+          (c) =>
+            (c.style.display = c.dataset.title.includes(term)
+              ? 'flex'
+              : 'none'),
+        )
     })
   },
 
@@ -761,7 +786,7 @@ const Views = {
     content.innerHTML = `
                     <div class="fade-in max-w-4xl mx-auto pb-10">
                         <div class="sticky top-[72px] lg:top-0 bg-[#f4f4f5]/90 dark:bg-[#09090b]/90 backdrop-blur-xl z-20 py-3 sm:py-4 mb-6 sm:mb-8 px-1 sm:px-2">
-                            <h2 class="text-2xl sm:text-3xl font-display font-bold">Profil & Sinkronisasi</h2>
+                            <h2 class="text-2xl sm:text-3xl font-display font-bold">Profil & Pengaturan</h2>
                         </div>
 
                         <!-- Progress Section -->
@@ -776,9 +801,44 @@ const Views = {
                             <div class="glass-panel p-5 sm:p-6 rounded-[1.25rem] sm:rounded-[1.5rem] hover-lift">
                                 <div class="flex items-center gap-3 mb-2">
                                     <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-amber-50 dark:bg-amber-500/10 text-amber-500 flex items-center justify-center"><i class="ph-fill ph-medal"></i></div>
-                                    <h3 class="font-bold text-gray-500 text-[10px] sm:text-xs uppercase tracking-wider">Skor Kuis Hari Ini</h3>
+                                    <h3 class="font-bold text-gray-500 text-[10px] sm:text-xs uppercase tracking-wider">Total Skor Kuis</h3>
                                 </div>
                                 <p class="font-display font-bold text-2xl sm:text-3xl mt-2 text-amber-500">${quizScore} <span class="text-xs sm:text-sm text-gray-400 font-medium">Poin</span></p>
+                            </div>
+                        </div>
+
+                        <!-- Pengaturan Audio Murottal (FITUR BARU) -->
+                        <div class="glass-panel p-5 sm:p-7 rounded-[1.5rem] sm:rounded-[2rem] mb-6 sm:mb-8 border border-brand-500/20">
+                            <h3 class="font-display font-bold text-lg sm:text-xl mb-1 flex items-center gap-2"><i class="ph-fill ph-headphones text-brand-500"></i> Pengaturan Murottal</h3>
+                            <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-5 sm:mb-6">Sesuaikan qari dan mode audio untuk pengalaman menghafal terbaik.</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <!-- Pilih Qari -->
+                                <div class="bg-white/50 dark:bg-black/20 p-4 rounded-xl border border-white/40 dark:border-white/5">
+                                    <label class="block text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Pilihan Qari Internasional</label>
+                                    <div class="relative">
+                                        <select id="qari-select" onchange="app.changeQari(this.value)" class="w-full bg-transparent outline-none text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-200 cursor-pointer appearance-none pr-8">
+                                            <option value="01" ${State.data.qari === '01' ? 'selected' : ''} class="text-gray-900">Abdullah Al-Juhany</option>
+                                            <option value="02" ${State.data.qari === '02' ? 'selected' : ''} class="text-gray-900">Abdul Muhsin Al-Qasim</option>
+                                            <option value="03" ${State.data.qari === '03' ? 'selected' : ''} class="text-gray-900">Abdurrahman As-Sudais</option>
+                                            <option value="04" ${State.data.qari === '04' ? 'selected' : ''} class="text-gray-900">Ibrahim Al-Dawsari</option>
+                                            <option value="05" ${State.data.qari === '05' ? 'selected' : ''} class="text-gray-900">Misyari Rasyid Al-Afasi</option>
+                                        </select>
+                                        <i class="ph-bold ph-caret-down absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+                                    </div>
+                                </div>
+
+                                <!-- Toggle Loop Hafalan -->
+                                <div class="bg-white/50 dark:bg-black/20 p-4 rounded-xl border border-white/40 dark:border-white/5 flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-bold text-sm sm:text-base">Mode Hafalan (Loop)</h4>
+                                        <p class="text-[10px] sm:text-xs text-gray-500 line-clamp-1">Ulangi audio ayat terus menerus</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                      <input type="checkbox" id="loop-toggle" class="sr-only peer" onchange="app.toggleGlobalLoop(this.checked)" ${State.data.loopAudio ? 'checked' : ''}>
+                                      <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-brand-500"></div>
+                                    </label>
+                                </div>
                             </div>
                         </div>
 
@@ -818,7 +878,7 @@ const Views = {
                         </div>
 
                         <div class="mt-6 sm:mt-8 glass-panel p-5 sm:p-6 rounded-[1.5rem] border border-red-500/20 bg-red-50/50 dark:bg-red-900/10 flex items-center justify-between">
-                            <div><h3 class="font-bold text-red-600 dark:text-red-400 text-xs sm:text-sm">Hapus Semua Data</h3><p class="text-[10px] sm:text-xs text-gray-500">Tindakan ini tidak dapat dibatalkan.</p></div>
+                            <div><h3 class="font-bold text-red-600 dark:text-red-400 text-xs sm:text-sm">Hapus Semua Data</h3><p class="text-[10px] sm:text-xs text-gray-500">Tindakan tidak dapat dibatalkan.</p></div>
                             <button onclick="app.confirmReset()" class="px-4 py-2 sm:px-5 sm:py-2.5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-lg sm:rounded-xl text-xs sm:text-sm transition-colors shadow-md">Reset</button>
                         </div>
                     </div>
@@ -839,7 +899,7 @@ const app = {
       { id: 'home', icon: 'house', label: 'Beranda' },
       { id: 'surahList', icon: 'book-open', label: 'Al-Quran' },
       { id: 'quiz', icon: 'question', label: 'Kuis' },
-      { id: 'settings', icon: 'user', label: 'Profil' }, // Mengubah label setting
+      { id: 'settings', icon: 'user', label: 'Profil' },
     ]
     const renderItem = (item, isDesktop) =>
       `<button onclick="app.navigate('${item.id}')" class="nav-btn ${isDesktop ? 'w-full flex items-center gap-4 px-5 py-3.5 rounded-2xl text-sm' : 'flex flex-col items-center justify-center w-16 h-14 rounded-2xl'} text-gray-400 hover:text-brand-500 font-medium transition-all" data-target="${item.id}"><i class="ph-fill ph-${item.icon} text-xl sm:text-2xl mb-0.5 lg:mb-0"></i><span class="${isDesktop ? '' : 'text-[10px] font-semibold'}">${item.label}</span></button>`
@@ -891,45 +951,50 @@ const app = {
     State.applyTheme()
   },
 
+  // Pengaturan Audio Methods
+  changeQari(value) {
+    State.data.qari = value
+    State.save()
+    Utils.showToast('Qari berhasil diperbarui', 'success')
+  },
+  toggleGlobalLoop(value) {
+    State.data.loopAudio = value
+    State.save()
+    audioManager.updateLoopUI()
+    Utils.showToast(
+      value ? 'Mode hafalan diaktifkan' : 'Mode hafalan dimatikan',
+      'info',
+    )
+  },
+
   // --- Kuis Logic ---
   async generateDailyQuiz(todayDate) {
     try {
-      // 1. Fetch paralel ke 3 API sekaligus dengan batas timeout (otomatis ditangani fetch standar)
       const [surahRes, asmaulRes] = await Promise.all([
         fetch('https://equran.id/api/v2/surat').then((r) => r.json()),
         fetch('https://api.aladhan.com/v1/asmaAlHusna').then((r) => r.json()),
       ])
 
-      // 2. Ekstraksi Data Ekstra Aman (Mencegah Error jika API mengubah format respon)
-      // [PERBAIKAN] Menggunakan pengecekan yang benar agar doaData tidak menjadi 'true'
       const surahData = surahRes.data || surahRes || []
       const asmaulData = asmaulRes.data || asmaulRes || []
 
-      // Validasi ketat: Jika salah satu API gagal memberi data, batalkan dan lempar ke catch
-      if (surahData.length === 0 || asmaulData.length === 0) {
+      if (surahData.length === 0 || asmaulData.length === 0)
         throw new Error(
           'Gagal mengambil struktur array dari salah satu API Kuis.',
         )
-      }
 
       let pool = []
-
-      // 4. Generate Soal dari API Surah
       for (let i = 0; i < 10; i++) {
         const surah = surahData[Math.floor(Math.random() * surahData.length)]
-
         if (Math.random() > 0.5) {
-          // Tipe Pertanyaan Arti
           const wrongs = surahData
             .filter((s) => s.arti !== surah.arti)
             .sort(() => 0.5 - Math.random())
             .slice(0, 3)
             .map((s) => s.arti)
-
           const options = [surah.arti, ...wrongs].sort(
             () => 0.5 - Math.random(),
           )
-
           pool.push({
             q: `Apa arti dari nama Surah ${surah.namaLatin}?`,
             options: options,
@@ -938,18 +1003,15 @@ const app = {
             exp: `Surah ${surah.namaLatin} adalah surah ke-${surah.nomor} yang diturunkan di ${surah.tempatTurun} dengan arti "${surah.arti}".`,
           })
         } else {
-          // Tipe Pertanyaan Jumlah Ayat
           const jumlah = parseInt(surah.jumlahAyat) || 0
           const wrongs = [
             jumlah + Math.floor(Math.random() * 10 + 1),
             Math.max(1, jumlah - Math.floor(Math.random() * 10 + 1)),
             jumlah + Math.floor(Math.random() * 20 + 5),
           ]
-
           const options = [jumlah.toString(), ...wrongs.map(String)].sort(
             () => 0.5 - Math.random(),
           )
-
           pool.push({
             q: `Berapa jumlah keseluruhan ayat dalam Surah ${surah.namaLatin}?`,
             options: options,
@@ -960,21 +1022,16 @@ const app = {
         }
       }
 
-      // 5. Generate Soal dari API Asmaul Husna
       for (let i = 0; i < 10; i++) {
         const asma = asmaulData[Math.floor(Math.random() * asmaulData.length)]
-        const meaning = asma.en?.meaning || 'Sempurna' // Tambahan Optional Chaining (Anti Error)
-
+        const meaning = asma.en?.meaning || 'Sempurna'
         if (Math.random() > 0.5) {
-          // Tebak Tulisan Arab dari Transliterasi
           const wrongs = asmaulData
             .filter((a) => a.name !== asma.name)
             .sort(() => 0.5 - Math.random())
             .slice(0, 3)
             .map((a) => a.name)
-
           const options = [asma.name, ...wrongs].sort(() => 0.5 - Math.random())
-
           pool.push({
             q: `Asmaul Husna urutan ke-${asma.number} dibaca ${asma.transliteration}. Penulisan Arabnya adalah...`,
             options: options,
@@ -983,17 +1040,14 @@ const app = {
             exp: `Asmaul Husna ke-${asma.number} adalah ${asma.name} yang dibaca ${asma.transliteration} (Maha ${meaning}).`,
           })
         } else {
-          // Tebak Transliterasi dari Tulisan Arab
           const wrongs = asmaulData
             .filter((a) => a.transliteration !== asma.transliteration)
             .sort(() => 0.5 - Math.random())
             .slice(0, 3)
             .map((a) => a.transliteration)
-
           const options = [asma.transliteration, ...wrongs].sort(
             () => 0.5 - Math.random(),
           )
-
           pool.push({
             q: `Bagaimana cara membaca Asmaul Husna <span class="font-arabic text-2xl text-amber-500">${asma.name}</span> ?`,
             options: options,
@@ -1004,23 +1058,21 @@ const app = {
         }
       }
 
-      // 6. Acak total kolam soal dan ambil tepat 5 soal saja untuk hari ini
       pool = pool.sort(() => 0.5 - Math.random()).slice(0, 5)
 
-      // 7. Simpan kuis ke dalam State/Local Storage
+      // PERBAIKAN: Pertahankan total skor yang sudah ada (diakumulasi)
+      const accumulatedScore = State.data.quiz ? State.data.quiz.score || 0 : 0
       State.data.quiz = {
         date: todayDate,
         questions: pool,
         currentIdx: 0,
-        score: 0,
+        score: accumulatedScore,
         completed: false,
       }
-      State.save()
 
-      // 8. Pindah dan render ulang halaman kuis (soal baru telah siap)
+      State.save()
       this.navigate('quiz')
     } catch (e) {
-      console.error('Error Fetching Quiz APIs:', e)
       Utils.showToast(
         'Gagal memuat API Kuis. Pastikan internet Anda aktif.',
         'error',
@@ -1061,40 +1113,24 @@ const app = {
     const doa = JSON.parse(decodeURIComponent(encodedDoa))
     const overlay = document.getElementById('modal-overlay')
     const content = document.getElementById('modal-content')
-
-    // Simpan string perintah close ke dalam variabel agar lebih rapi
-    // Kita tambahkan style.display = 'none' karena sebelumnya diset menjadi 'flex'
     const closeScript =
       "document.getElementById('modal-overlay').classList.add('hidden'); document.getElementById('modal-overlay').style.display='none';"
 
     content.innerHTML = `
-        <div class="flex justify-between items-start mb-5 sm:mb-6">
-            <div>
-                <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-brand-50 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 mb-2 inline-block">${doa.cat}</span>
-                <h3 class="font-display font-bold text-xl sm:text-2xl">${doa.title}</h3>
-            </div>
-            <button onclick="${closeScript}" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center bg-gray-100 dark:bg-white/10 rounded-full hover:text-red-500 transition-colors">
-                <i class="ph-bold ph-x text-xs sm:text-sm"></i>
-            </button>
-        </div>
-        <div class="space-y-4 sm:space-y-6">
-            <div class="glass-panel p-4 sm:p-6 rounded-xl sm:rounded-2xl text-center bg-brand-50/20 dark:bg-black/20">
-                <p class="arabic-text text-2xl sm:text-3xl font-arabic text-brand-600 dark:text-brand-400 leading-loose">${doa.ar}</p>
-            </div>
-            <div>
-                <h4 class="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Latin</h4>
-                <p class="text-xs sm:text-sm font-semibold text-brand-500 italic">${doa.tr}</p>
-            </div>
-            <div>
-                <h4 class="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Artinya</h4>
-                <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 leading-relaxed">${doa.idn}</p>
-            </div>
-        </div>
-        <button onclick="${closeScript}" class="mt-6 sm:mt-8 w-full py-3 sm:py-3.5 bg-brand-500 hover:bg-brand-600 text-white rounded-xl font-bold text-xs sm:text-sm shadow-lg">
-            Tutup
-        </button>
-    `
-
+                    <div class="flex justify-between items-start mb-5 sm:mb-6">
+                        <div>
+                            <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-brand-50 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 mb-2 inline-block">${doa.cat}</span>
+                            <h3 class="font-display font-bold text-xl sm:text-2xl">${doa.title}</h3>
+                        </div>
+                        <button onclick="${closeScript}" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center bg-gray-100 dark:bg-white/10 rounded-full hover:text-red-500 transition-colors"><i class="ph-bold ph-x text-xs sm:text-sm"></i></button>
+                    </div>
+                    <div class="space-y-4 sm:space-y-6">
+                        <div class="glass-panel p-4 sm:p-6 rounded-xl sm:rounded-2xl text-center bg-brand-50/20 dark:bg-black/20"><p class="arabic-text text-2xl sm:text-3xl font-arabic text-brand-600 dark:text-brand-400 leading-loose">${doa.ar}</p></div>
+                        <div><h4 class="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Latin</h4><p class="text-xs sm:text-sm font-semibold text-brand-500 italic">${doa.tr}</p></div>
+                        <div><h4 class="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Artinya</h4><p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 leading-relaxed">${doa.idn}</p></div>
+                    </div>
+                    <button onclick="${closeScript}" class="mt-6 sm:mt-8 w-full py-3 sm:py-3.5 bg-brand-500 hover:bg-brand-600 text-white rounded-xl font-bold text-xs sm:text-sm shadow-lg">Tutup</button>
+                `
     overlay.classList.remove('hidden')
     overlay.style.display = 'flex'
     setTimeout(() => {
@@ -1256,7 +1292,6 @@ const app = {
   showGenerateQRModal() {
     const overlay = document.getElementById('modal-overlay')
     const content = document.getElementById('modal-content')
-
     const closeScript =
       "document.getElementById('modal-overlay').classList.add('hidden'); document.getElementById('modal-overlay').style.display='none';"
 
@@ -1276,9 +1311,7 @@ const app = {
                         <div><h3 class="font-display font-bold text-lg sm:text-2xl">QR Sinkronisasi</h3><p class="text-[10px] sm:text-xs text-gray-500 mt-1">Pindai dari perangkat baru.</p></div>
                         <button onclick="${closeScript}" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center bg-gray-100 dark:bg-white/10 rounded-full hover:text-red-500"><i class="ph-bold ph-x text-xs sm:text-sm"></i></button>
                     </div>
-                    <div class="flex justify-center bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl mb-4 sm:mb-6 mx-auto w-fit">
-                        <div id="qrcode-container"></div>
-                    </div>
+                    <div class="flex justify-center bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl mb-4 sm:mb-6 mx-auto w-fit"><div id="qrcode-container"></div></div>
                     <p class="text-[10px] sm:text-xs text-center text-gray-500 dark:text-gray-400">Peringatan: Jaga kerahasiaan QR ini.</p>
                 `
     overlay.classList.remove('hidden')
@@ -1303,7 +1336,6 @@ const app = {
   showScannerModal() {
     const overlay = document.getElementById('modal-overlay')
     const content = document.getElementById('modal-content')
-
     const closeScript =
       "document.getElementById('modal-overlay').classList.add('hidden'); document.getElementById('modal-overlay').style.display='none';"
 
@@ -1365,7 +1397,6 @@ const app = {
   confirmReset() {
     const overlay = document.getElementById('modal-overlay')
     const content = document.getElementById('modal-content')
-
     const closeScript =
       "document.getElementById('modal-overlay').classList.add('hidden'); document.getElementById('modal-overlay').style.display='none';"
 
@@ -1390,3 +1421,24 @@ const app = {
 }
 
 window.addEventListener('DOMContentLoaded', () => app.init())
+
+// PWA Installation handling
+let deferredPrompt
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault()
+  deferredPrompt = e
+  const installBanner = document.getElementById('installBanner')
+  if (installBanner) installBanner.style.display = 'flex'
+})
+
+document.getElementById('installBtn').addEventListener('click', async () => {
+  document.getElementById('installBanner').style.display = 'none'
+  deferredPrompt.prompt()
+  const { outcome } = await deferredPrompt.userChoice
+  console.log(`User response: ${outcome}`)
+  deferredPrompt = null
+})
+
+window.addEventListener('appinstalled', (event) => {
+  console.log('App was installed to home screen')
+})
