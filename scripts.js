@@ -1420,24 +1420,3 @@ const app = {
 }
 
 window.addEventListener('DOMContentLoaded', () => app.init())
-
-// PWA Installation handling
-let deferredPrompt
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault()
-  deferredPrompt = e
-  const installBanner = document.getElementById('installBanner')
-  if (installBanner) installBanner.style.display = 'flex'
-})
-
-document.getElementById('installBtn').addEventListener('click', async () => {
-  document.getElementById('installBanner').style.display = 'none'
-  deferredPrompt.prompt()
-  const { outcome } = await deferredPrompt.userChoice
-  console.log(`User response: ${outcome}`)
-  deferredPrompt = null
-})
-
-window.addEventListener('appinstalled', (event) => {
-  console.log('App was installed to home screen')
-})
