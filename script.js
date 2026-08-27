@@ -1037,7 +1037,6 @@ const Views = {
                                     </button>
                                 </div>
                             </div>
-<<<<<<< HEAD
                         </div>
 
                         <div class="mt-6 sm:mt-8 glass-panel p-5 sm:p-6 rounded-[1.5rem] border border-red-500/20 bg-red-50/50 dark:bg-red-900/10 flex items-center justify-between">
@@ -1045,12 +1044,10 @@ const Views = {
                             <h3 class="font-bold text-red-600 dark:text-red-400 text-xs sm:text-sm">Hapus Semua Data</h3><p class="text-[10px] sm:text-xs text-gray-500">Tindakan tidak dapat dibatalkan.</p>
                             </div>
                             <button class="px-4 py-2 sm:px-5 sm:py-2.5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-lg sm:rounded-xl text-xs sm:text-sm transition-colors shadow-md">Reset</button>
-=======
                             <div class="mt-6 sm:mt-8 glass-panel p-5 sm:p-6 rounded-[1.5rem] border border-red-500/20 bg-red-50/50 dark:bg-red-900/10 flex items-center justify-between">
                                 <div><h3 class="font-bold text-red-600 dark:text-red-400 text-xs sm:text-sm">Hapus Semua Data</h3><p class="text-[10px] sm:text-xs text-gray-500">Tindakan tidak dapat dibatalkan.</p></div>
                                 <button class="px-4 py-2 sm:px-5 sm:py-2.5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-lg sm:rounded-xl text-xs sm:text-sm transition-colors shadow-md">Reset</button>
                             </div>
->>>>>>> 7ac8ee1ebea815cbf7ce902b1860f12fe21768aa
                         </div>
                     </div>
                 `
