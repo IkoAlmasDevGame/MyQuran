@@ -587,15 +587,13 @@ const Views = {
   },
 
   renderSurahList() {
-    const content = document.getElementById('app-content')
-    Utils.showLoader('app-content')
-    API.getSurahList().then((resData) => {
-      // Ensure we handle both direct array or wrapped data object safely
-      const surahs = Array.isArray(resData)
-        ? resData
-        : resData.data || resData.surat || []
-
-      content.innerHTML = `
+                const content = document.getElementById('app-content')
+                Utils.showLoader('app-content')
+                API.getSurahList().then((resData) => {
+                    // Ensure we handle both direct array or wrapped data object safely
+                    const surahs = Array.isArray(resData) ? resData : (resData.data || resData.surat || []);
+                    
+                    content.innerHTML = `
                         <div class="fade-in max-w-5xl mx-auto pb-6">
                             <div class="sticky top-[72px] lg:top-0 pt-2 pb-4 sm:pb-6 bg-[#f4f4f5] dark:bg-[#09090b] z-20">
                                 <h2 class="text-2xl sm:text-3xl font-display font-bold mb-4 hidden lg:block">Daftar Surat</h2>
@@ -605,9 +603,7 @@ const Views = {
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4" id="surah-grid">
-                                ${surahs
-                                  .map(
-                                    (surah) => `
+                                ${surahs.map(surah => `
                                     <div class="glass-panel p-4 sm:p-5 rounded-[1.25rem] sm:rounded-[1.5rem] flex items-center justify-between cursor-pointer hover-lift surah-card border border-transparent hover:border-brand-500/20" data-name="${(surah.nama_latin || surah.namaLatin || '').toLowerCase()}" onclick="app.navigate('surahDetail', ${surah.nomor || surah.no})">
                                         <div class="flex items-center gap-3 sm:gap-4">
                                             <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center relative"><span class="font-bold text-xs sm:text-sm">${surah.nomor || surah.no}</span></div>
@@ -618,48 +614,37 @@ const Views = {
                                         </div>
                                         <div class="text-xl sm:text-2xl font-arabic text-brand-600 dark:text-brand-400">${surah.nama}</div>
                                     </div>
-                                `,
-                                  )
-                                  .join('')}
+                                `).join('')}
                             </div>
                         </div>
                     `
-      document.getElementById('search-surah').addEventListener('input', (e) => {
-        const term = e.target.value.toLowerCase()
-        document
-          .querySelectorAll('.surah-card')
-          .forEach(
-            (c) =>
-              (c.style.display = c.dataset.name.includes(term)
-                ? 'flex'
-                : 'none'),
-          )
-      })
-    })
-  },
+                    document.getElementById('search-surah').addEventListener('input', (e) => {
+                        const term = e.target.value.toLowerCase()
+                        document.querySelectorAll('.surah-card').forEach(c => c.style.display = c.dataset.name.includes(term) ? 'flex' : 'none')
+                    })
+                })
+            },
 
-  async renderSurahDetail(surahId, scrollToAyah = null) {
-    const content = document.getElementById('app-content')
-    Utils.showLoader('app-content')
-    const surah = await API.getSurahDetail(surahId)
-    if (!surah) {
-      app.navigate('surahList')
-      return
-    }
+            async renderSurahDetail(surahId, scrollToAyah = null) {
+                const content = document.getElementById('app-content')
+                Utils.showLoader('app-content')
+                const surah = await API.getSurahDetail(surahId)
+                if (!surah) {
+                    app.navigate('surahList')
+                    return
+                }
 
-    const qari = State.data.qari || '05'
-    const ayatList = surah.ayat || surah.ayahs || []
-    const playlist = ayatList.map((a) => ({
-      url:
-        (a.audio && (a.audio[qari] || a.audio['05'])) ||
-        (typeof a.audio === 'string' ? a.audio : ''),
-      title: `${surah.nama_latin || surah.namaLatin} - Ayat ${a.nomor_ayat || a.nomorAyat || a.ayah}`,
-    }))
+                const qari = State.data.qari || '05';
+                const ayatList = surah.ayat || surah.ayahs || [];
+                const playlist = ayatList.map((a) => ({
+                    url: (a.audio && (a.audio[qari] || a.audio['05'])) || (typeof a.audio === 'string' ? a.audio : ''),
+                    title: `${surah.nama_latin || surah.namaLatin} - Ayat ${a.nomor_ayat || a.nomorAyat || a.ayah}`,
+                }))
 
-    content.innerHTML = `
+                content.innerHTML = `
                     <div class="fade-in max-w-3xl mx-auto pb-10">
                         <div class="sticky top-[72px] lg:top-0 bg-[#f4f4f5]/90 dark:bg-[#09090b]/90 backdrop-blur-xl z-20 py-3 sm:py-4 mb-6 sm:mb-8 flex items-center justify-between px-1 sm:px-2">
-                            <button onclick="app.navigate('surahDetail', 36)" class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-gray-200/50 dark:bg-white/10 hover:bg-gray-300 transition-colors"><i class="ph-bold ph-arrow-left text-base sm:text-lg"></i></button>
+                            <button onclick="app.navigate('surahList')" class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-gray-200/50 dark:bg-white/10 hover:bg-gray-300 transition-colors"><i class="ph-bold ph-arrow-left text-base sm:text-lg"></i></button>
                             <div class="text-center">
                                 <h2 class="font-display font-bold text-lg sm:text-xl">${surah.nama_latin || surah.namaLatin}</h2>
                                 <p class="text-[9px] sm:text-[11px] font-semibold text-gray-500 uppercase mt-0.5">${surah.arti} • ${surah.jumlah_ayat || surah.jumlahAyat} Ayat</p>
@@ -670,28 +655,12 @@ const Views = {
                         ${surahId !== 9 ? `<div class="text-center py-8 sm:py-12 mb-6 sm:mb-10"><p class="font-arabic text-3xl sm:text-4xl lg:text-5xl text-brand-600 dark:text-brand-400 leading-loose">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p></div>` : ''}
                         
                         <div class="space-y-6 sm:space-y-8" id="ayah-container">
-                            ${ayatList
-                              .map((ayah, index) => {
-                                const noAyat =
-                                  ayah.nomor_ayat || ayah.nomorAyat || ayah.ayah
-                                const audioUrl =
-                                  (ayah.audio &&
-                                    (ayah.audio[qari] || ayah.audio['05'])) ||
-                                  (typeof ayah.audio === 'string'
-                                    ? ayah.audio
-                                    : '')
-                                const tArab =
-                                  ayah.teks_arab || ayah.teksArab || ayah.arab
-                                const tLatin =
-                                  ayah.teks_latin ||
-                                  ayah.teksLatin ||
-                                  ayah.latin ||
-                                  ''
-                                const tIndo =
-                                  ayah.teks_indonesia ||
-                                  ayah.teksIndonesia ||
-                                  ayah.translation ||
-                                  ''
+                            ${ayatList.map((ayah, index) => {
+                                const noAyat = ayah.nomor_ayat || ayah.nomorAyat || ayah.ayah;
+                                const audioUrl = (ayah.audio && (ayah.audio[qari] || ayah.audio['05'])) || (typeof ayah.audio === 'string' ? ayah.audio : '');
+                                const tArab = ayah.teks_arab || ayah.teksArab || ayah.arab;
+                                const tLatin = ayah.teks_latin || ayah.teksLatin || ayah.latin || '';
+                                const tIndo = ayah.teks_indonesia || ayah.teksIndonesia || ayah.translation || '';
                                 return `
                                 <div class="glass-panel p-5 sm:p-6 lg:p-8 rounded-[1.5rem] sm:rounded-[2rem] relative slide-up border border-transparent hover:border-brand-500/20" style="animation-delay: ${Math.min(index * 0.03, 0.5)}s" id="ayah-${noAyat}">
                                     <div class="flex justify-between items-start mb-4 sm:mb-6">
@@ -708,22 +677,19 @@ const Views = {
                                         <p class="text-xs sm:text-sm lg:text-base text-gray-600 dark:text-gray-300 leading-relaxed">${tIndo}</p>
                                     </div>
                                 </div>
-                            `
-                              })
-                              .join('')}
+                            `}).join('')}
                         </div>
                     </div>
                 `
-    if (scrollToAyah)
-      setTimeout(() => {
-        const el = document.getElementById(`ayah-${scrollToAyah}`)
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'center' })
-          el.classList.add('ring-2', 'ring-brand-500')
-        }
-      }, 600)
-  },
-
+                if (scrollToAyah) setTimeout(() => {
+                    const el = document.getElementById(`ayah-${scrollToAyah}`)
+                    if (el) {
+                        el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                        el.classList.add('ring-2', 'ring-brand-500')
+                    }
+                }, 600)
+            },
+  
   renderTahlilYasin() {
     const content = document.getElementById('app-content')
 
