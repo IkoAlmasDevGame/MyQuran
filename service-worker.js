@@ -3,7 +3,7 @@ const urlsToCache = [
   '/',
   '/index.html',
   '/style.css',
-  '/script.js',
+  '/scripts.js',
   '/main.js',
   '/MyQuran-premium.png',
   // Add other assets you want to cache

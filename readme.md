@@ -25,7 +25,7 @@
 2. Murrotal Pengantar Tidur (Update Mendatang)
 3. Share Kartu Ayat (Update)
 4. Quiz Quran Offline
-5. Buku Tahlil (Update)
+5. Buku Tahlil (Update Mendatang karena bug)
 
 - Fitur tanpa login :
 

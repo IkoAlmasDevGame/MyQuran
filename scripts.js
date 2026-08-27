@@ -104,88 +104,14 @@ const Database = {
     { ar: 'الرَّشِيدُ', la: 'Ar-Rasyid', id: 'Yang Maha Pandai' },
     { ar: 'الصَّبُورُ', la: 'As-Shabur', id: 'Yang Maha Sabar' },
   ],
-  tahlil: [
-    {
-      title: '1. Pengantar Al-Fatihah',
-      ar: 'إِلَى حَضْرَةِ النَّبِيِّ الْمُصْطَفَى صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ وَاَلِهِ وَصَحْبِهِ شَيْءٌ لِلَّهِ لَهُمُ الْفَاتِحَةُ',
-      tr: "Ilaa hadhrotin nabiyyil mushthoofaa shollallohu 'alaihi wa sallama wa aalihi wa shohbihi syai-ul lillahi lahumul faatihah.",
-      idn: 'Kepada yang terhormat Nabi Muhammad SAW, segenap keluarga, dan para sahabatnya. Bacaan Al-Fatihah ini kami sucikan kepada Allah dan pahalanya untuk mereka semua. Al-Fatihah.',
-    },
-    {
-      title: '2. Surat Al-Fatihah',
-      ar: 'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ ۝ اَلْحَمْدُ لِلّٰهِ رَبِّ الْعٰلَمِيْنَ ۝ الرَّحْمٰنِ الرَّحِيْمِ ۝ مٰلِكِ يَوْمِ الدِّيْنِ ۝ اِيَّاكَ نَعْبُدُ وَاِيَّاكَ نَسْتَعِيْنُ ۝ اِهْدِنَا الصِّرَاطَ الْمُسْتَقِيْمَ ۝ صِرَاطَ الَّذِيْنَ اَنْعَمْتَ عَلَيْهِمْ ەۙ غَيْرِ الْمَغْضُوْبِ عَلَيْهِمْ وَلَا الضَّاۤلِّيْنَ ۝',
-      tr: "Bismillahir-rahmanir-rahim. Alhamdu lillahi rabbil-'alamin...",
-      idn: 'Dengan nama Allah Yang Maha Pengasih, Maha Penyayang. Segala puji bagi Allah, Tuhan seluruh alam...',
-    },
-    {
-      title: '3. Surat Al-Ikhlas (3x)',
-      ar: 'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ. قُلْ هُوَ اللّٰهُ اَحَدٌۚ ۝ اَللّٰهُ الصَّمَدُۚ ۝ لَمْ يَلِدْ وَلَمْ يُوْلَدْۙ ۝ وَلَمْ يَكُنْ لَّهٗ كُفُوًا اَحَدٌ ۝',
-      tr: 'Bismillahir-rahmanir-rahim. Qul huwallahu ahad...',
-      idn: "Dengan nama Allah Yang Maha Pengasih, Maha Penyayang. Katakanlah (Muhammad), 'Dialah Allah, Yang Maha Esa...'",
-    },
-    {
-      title: '4. Tahlil & Takbir',
-      ar: 'لَا إِلَهَ إِلَّا اللهُ وَاللهُ أَكْبَرُ',
-      tr: 'Laa ilaaha illallohu wallohu akbar.',
-      idn: 'Tiada Tuhan selain Allah, Allah Maha Besar.',
-    },
-    {
-      title: '5. Surat Al-Falaq',
-      ar: 'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ. قُلْ اَعُوْذُ بِرَبِّ الْفَلَقِۙ ۝ مِنْ شَرِّ مَا خَلَقَۙ ۝ وَمِنْ شَرِّ غَاسِقٍ اِذَا وَقَبَۙ ۝ وَمِنْ شَرِّ النَّفّٰثٰتِ فِى الْعُقَدِۙ ۝ وَمِنْ شَرِّ حَاسِدٍ اِذَا حَسَدَ ۝',
-      tr: "Bismillahir-rahmanir-rahim. Qul a'udzu birabbil-falaq...",
-      idn: "Dengan nama Allah Yang Maha Pengasih, Maha Penyayang. Katakanlah, 'Aku berlindung kepada Tuhan yang menguasai subuh (fajar)...'",
-    },
-    {
-      title: '6. Tahlil & Takbir',
-      ar: 'لَا إِلَهَ إِلَّا اللهُ وَاللهُ أَكْبَرُ',
-      tr: 'Laa ilaaha illallohu wallohu akbar.',
-      idn: 'Tiada Tuhan selain Allah, Allah Maha Besar.',
-    },
-    {
-      title: '7. Surat An-Nas',
-      ar: 'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ. قُلْ اَعُوْذُ بِرَبِّ النَّاسِۙ ۝ مَلِكِ النَّاسِۙ ۝ اِلٰهِ النَّاسِۙ ۝ مِنْ شَرِّ الْوَسْوَاسِ ەۙ الْخَنَّاسِۙ ۝ الَّذِيْ يُوَسْوِسُ فِيْ صُدُوْرِ النَّاسِۙ ۝ مِنَ الْجِنَّةِ وَالنَّاسِ ۝',
-      tr: "Bismillahir-rahmanir-rahim. Qul a'udzu birabbin-nas...",
-      idn: "Dengan nama Allah Yang Maha Pengasih, Maha Penyayang. Katakanlah, 'Aku berlindung kepada Tuhannya manusia...'",
-    },
-    {
-      title: '8. Tahlil & Takbir',
-      ar: 'لَا إِلَهَ إِلَّا اللهُ وَاللهُ أَكْبَرُ وَلِلَّهِ الْحَمْدُ',
-      tr: 'Laa ilaaha illallohu wallohu akbar walillahil hamd.',
-      idn: 'Tiada Tuhan selain Allah, Allah Maha Besar, dan segala puji bagi Allah.',
-    },
-    {
-      title: '9. Ayat Kursi',
-      ar: 'اَللّٰهُ لَآ اِلٰهَ اِلَّا هُوَۚ اَلْحَيُّ الْقَيُّوْمُ ەۚ لَا تَأْخُذُهٗ سِنَةٌ وَّلَا نَوْمٌۗ لَهٗ مَا فِى السَّمٰوٰتِ وَمَا فِى الْاَرْضِۗ مَنْ ذَا الَّذِيْ يَشْفَعُ عِنْدَهٗٓ اِلَّا بِاِذْنِهٖۗ يَعْلَمُ مَا بَيْنَ اَيْدِيْهِمْ وَمَا خَلْفَهُمْۚ وَلَا يُحِيْطُوْنَ بِشَيْءٍ مِّنْ عِلْمِهٖٓ اِلَّا بِمَا شَاۤءَۚ وَسِعَ كُرْسِيُّهُ السَّمٰوٰتِ وَالْاَرْضَۚ وَلَا يَـُٔوْدُهٗ حِفْظُهُمَاۚ وَهُوَ الْعَلِيُّ الْعَظِيْمُ',
-      tr: 'Allahu laa ilaaha illaa huwal hayyul qayyuum...',
-      idn: 'Allah, tidak ada tuhan selain Dia. Yang Mahahidup, Yang terus menerus mengurus (makhluk-Nya)...',
-    },
-    {
-      title: '10. Istighfar (3x)',
-      ar: 'أَسْتَغْفِرُ اللهَ الْعَظِيْمَ',
-      tr: "Astaghfirullahal 'azhiim.",
-      idn: 'Aku memohon ampun kepada Allah Yang Maha Agung.',
-    },
-    {
-      title: '11. Tahlil Utama (33x)',
-      ar: 'لَا إِلَهَ إِلَّا اللهُ',
-      tr: 'Laa ilaaha illallah.',
-      idn: 'Tiada Tuhan selain Allah.',
-    },
-    {
-      title: '12. Doa Tahlil Singkat',
-      ar: 'اَللَّهُمَّ اغْفِرْ لَهُمْ وَارْحَمْهُمْ وَعَافِهِمْ وَاعْفُ عَنْهُمْ. اَللَّهُمَّ اَنْزِلِ الرَّحْمَةَ وَالْمَغْفِرَةَ عَلَى أَهْلِ الْقُبُوْرِ مِنْ أَهْلِ لَاإِلَهَ إِلَّا اللهُ مُحَمَّدٌ رَّسُوْلُ اللهِ.',
-      tr: "Allahummaghfirlahum warhamhum wa 'aafihim wa'fu 'anhum...",
-      idn: 'Ya Allah, ampunilah mereka, rahmatilah mereka, sejahterakanlah mereka, dan maafkanlah mereka...',
-    },
-  ],
 }
 
 const State = {
   data: {
     theme: 'dark',
     fontSize: 32,
-    qari: '05',
-    loopAudio: false,
+    qari: '05', // Default Qari: Misyari Rasyid Al-Afasi
+    loopAudio: false, // Default Loop disabled
     lastRead: null,
     bookmarks: [],
     notes: {},
@@ -203,14 +129,14 @@ const State = {
   intervals: {},
   compassHandler: null,
   init() {
-    const saved = localStorage.getItem('myquran_data_v8')
+    const saved = localStorage.getItem('myquran_data_v7')
     if (saved) this.data = { ...this.data, ...JSON.parse(saved) }
     this.applyTheme()
     this.applyFontSize()
     this.fetchRealtimePrayerTimes()
   },
   save() {
-    localStorage.setItem('myquran_data_v8', JSON.stringify(this.data))
+    localStorage.setItem('myquran_data_v7', JSON.stringify(this.data))
   },
   applyTheme() {
     document.documentElement.classList.toggle(
@@ -227,10 +153,7 @@ const State = {
   async fetchRealtimePrayerTimes(forceLocationRefresh = false) {
     try {
       const { lat, lng } = this.data.location
-      // Inside State.fetchRealtimePrayerTimes, replace the dateStr generation:
-      const local = new Date()
-      const dateStr = `${local.getDate().toString().padStart(2, '0')}-${(local.getMonth() + 1).toString().padStart(2, '0')}-${local.getFullYear()}`
-
+      const dateStr = new Date().toISOString().split('T')[0]
       const res = await fetch(
         `https://api.aladhan.com/v1/timings/${dateStr}?latitude=${lat}&longitude=${lng}&method=20`,
       )
@@ -291,13 +214,10 @@ const Utils = {
 }
 
 const API = {
-  baseUrl: 'https://api.myquran.com/v3/quran',
-  // Replace the API.getSurahList() method with this direct call:
+  baseUrl: 'https://equran.id/api/v2',
   async getSurahList() {
     try {
-      const res = await fetch(`${this.baseUrl}/surat`)
-      const json = await res.json()
-      return json.data || json || []
+      return (await (await fetch(`${this.baseUrl}/surat`)).json()).data
     } catch (e) {
       Utils.showToast('Gagal memuat Surat', 'error')
       return []
@@ -305,9 +225,7 @@ const API = {
   },
   async getSurahDetail(id) {
     try {
-      const res = await fetch(`${this.baseUrl}/surat/${id}`)
-      const json = await res.json()
-      return json.data || json || null
+      return (await (await fetch(`${this.baseUrl}/surat/${id}`)).json()).data
     } catch (e) {
       Utils.showToast('Gagal memuat detail', 'error')
       return null
@@ -357,6 +275,7 @@ const audioManager = {
     this.titleEl.textContent = title
     this.player.src = url
 
+    // Set link download di audio player
     const dlBtn = document.getElementById('btn-audio-dl')
     if (dlBtn) {
       dlBtn.href = url
@@ -534,13 +453,6 @@ const Views = {
                                 action: "app.navigate('surahList')",
                               },
                               {
-                                id: 'tahlil',
-                                icon: 'book-bookmark',
-                                color: 'emerald',
-                                label: 'Tahlil',
-                                action: "app.navigate('tahlilYasin')",
-                              },
-                              {
                                 id: 'doaHarian',
                                 icon: 'hands-praying',
                                 color: 'blue',
@@ -583,12 +495,7 @@ const Views = {
   renderSurahList() {
     const content = document.getElementById('app-content')
     Utils.showLoader('app-content')
-    API.getSurahList().then((resData) => {
-      // Ensure we handle both direct array or wrapped data object safely
-      const surahs = Array.isArray(resData)
-        ? resData
-        : resData.data || resData.surat || []
-
+    API.getSurahList().then((surahs) => {
       content.innerHTML = `
                         <div class="fade-in max-w-5xl mx-auto pb-6">
                             <div class="sticky top-[72px] lg:top-0 pt-2 pb-4 sm:pb-6 bg-[#f4f4f5] dark:bg-[#09090b] z-20">
@@ -602,12 +509,12 @@ const Views = {
                                 ${surahs
                                   .map(
                                     (surah) => `
-                                    <div class="glass-panel p-4 sm:p-5 rounded-[1.25rem] sm:rounded-[1.5rem] flex items-center justify-between cursor-pointer hover-lift surah-card border border-transparent hover:border-brand-500/20" data-name="${(surah.nama_latin || surah.namaLatin || '').toLowerCase()}" onclick="app.navigate('surahDetail', ${surah.nomor || surah.no})">
+                                    <div class="glass-panel p-4 sm:p-5 rounded-[1.25rem] sm:rounded-[1.5rem] flex items-center justify-between cursor-pointer hover-lift surah-card border border-transparent hover:border-brand-500/20" data-name="${surah.namaLatin.toLowerCase()}" onclick="app.navigate('surahDetail', ${surah.nomor})">
                                         <div class="flex items-center gap-3 sm:gap-4">
-                                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center relative"><span class="font-bold text-xs sm:text-sm">${surah.nomor || surah.no}</span></div>
+                                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center relative"><span class="font-bold text-xs sm:text-sm">${surah.nomor}</span></div>
                                             <div>
-                                                <h3 class="font-display font-bold text-base sm:text-lg">${surah.nama_latin || surah.namaLatin}</h3>
-                                                <p class="text-[9px] sm:text-[11px] font-semibold text-gray-400 uppercase mt-0.5 sm:mt-1">${surah.tempat_turun || surah.tempatTurun} • ${surah.jumlah_ayat || surah.jumlahAyat} Ayat</p>
+                                                <h3 class="font-display font-bold text-base sm:text-lg">${surah.namaLatin}</h3>
+                                                <p class="text-[9px] sm:text-[11px] font-semibold text-gray-400 uppercase mt-0.5 sm:mt-1">${surah.tempatTurun} • ${surah.jumlahAyat} Ayat</p>
                                             </div>
                                         </div>
                                         <div class="text-xl sm:text-2xl font-arabic text-brand-600 dark:text-brand-400">${surah.nama}</div>
@@ -641,69 +548,46 @@ const Views = {
       return
     }
 
-    const qari = State.data.qari || '05'
-    const ayatList = surah.ayat || surah.ayahs || []
-    const playlist = ayatList.map((a) => ({
-      url:
-        (a.audio && (a.audio[qari] || a.audio['05'])) ||
-        (typeof a.audio === 'string' ? a.audio : ''),
-      title: `${surah.nama_latin || surah.namaLatin} - Ayat ${a.nomor_ayat || a.nomorAyat || a.ayah}`,
+    const qari = State.data.qari || '05' // Ambil qari yang dipilih
+    const playlist = surah.ayat.map((a) => ({
+      url: a.audio[qari],
+      title: `${surah.namaLatin} - Ayat ${a.nomorAyat}`,
     }))
 
     content.innerHTML = `
                     <div class="fade-in max-w-3xl mx-auto pb-10">
                         <div class="sticky top-[72px] lg:top-0 bg-[#f4f4f5]/90 dark:bg-[#09090b]/90 backdrop-blur-xl z-20 py-3 sm:py-4 mb-6 sm:mb-8 flex items-center justify-between px-1 sm:px-2">
-                            <button onclick="app.navigate('surahDetail', 36)" class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-gray-200/50 dark:bg-white/10 hover:bg-gray-300 transition-colors"><i class="ph-bold ph-arrow-left text-base sm:text-lg"></i></button>
+                            <button onclick="app.navigate('surahList')" class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-gray-200/50 dark:bg-white/10 hover:bg-gray-300 transition-colors"><i class="ph-bold ph-arrow-left text-base sm:text-lg"></i></button>
                             <div class="text-center">
-                                <h2 class="font-display font-bold text-lg sm:text-xl">${surah.nama_latin || surah.namaLatin}</h2>
-                                <p class="text-[9px] sm:text-[11px] font-semibold text-gray-500 uppercase mt-0.5">${surah.arti} • ${surah.jumlah_ayat || surah.jumlahAyat} Ayat</p>
+                                <h2 class="font-display font-bold text-lg sm:text-xl">${surah.namaLatin}</h2>
+                                <p class="text-[9px] sm:text-[11px] font-semibold text-gray-500 uppercase mt-0.5">${surah.arti} • ${surah.jumlahAyat} Ayat</p>
                             </div>
-                            <button onclick="audioManager.play('${(surah.audio_full && surah.audio_full[qari]) || (surah.audioFull && surah.audioFull['05']) || ''}', 'Murottal ${surah.nama_latin || surah.namaLatin}')" class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-500/10 text-brand-500 hover:scale-105 transition-transform"><i class="ph-fill ph-play text-base sm:text-lg"></i></button>
+                            <button onclick="audioManager.play('${surah.audioFull[qari]}', 'Murottal ${surah.namaLatin}')" class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-500/10 text-brand-500 hover:scale-105 transition-transform"><i class="ph-fill ph-play text-base sm:text-lg"></i></button>
                         </div>
                         
                         ${surahId !== 9 ? `<div class="text-center py-8 sm:py-12 mb-6 sm:mb-10"><p class="font-arabic text-3xl sm:text-4xl lg:text-5xl text-brand-600 dark:text-brand-400 leading-loose">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p></div>` : ''}
                         
                         <div class="space-y-6 sm:space-y-8" id="ayah-container">
-                            ${ayatList
-                              .map((ayah, index) => {
-                                const noAyat =
-                                  ayah.nomor_ayat || ayah.nomorAyat || ayah.ayah
-                                const audioUrl =
-                                  (ayah.audio &&
-                                    (ayah.audio[qari] || ayah.audio['05'])) ||
-                                  (typeof ayah.audio === 'string'
-                                    ? ayah.audio
-                                    : '')
-                                const tArab =
-                                  ayah.teks_arab || ayah.teksArab || ayah.arab
-                                const tLatin =
-                                  ayah.teks_latin ||
-                                  ayah.teksLatin ||
-                                  ayah.latin ||
-                                  ''
-                                const tIndo =
-                                  ayah.teks_indonesia ||
-                                  ayah.teksIndonesia ||
-                                  ayah.translation ||
-                                  ''
-                                return `
-                                <div class="glass-panel p-5 sm:p-6 lg:p-8 rounded-[1.5rem] sm:rounded-[2rem] relative slide-up border border-transparent hover:border-brand-500/20" style="animation-delay: ${Math.min(index * 0.03, 0.5)}s" id="ayah-${noAyat}">
+                            ${surah.ayat
+                              .map(
+                                (ayah, index) => `
+                                <div class="glass-panel p-5 sm:p-6 lg:p-8 rounded-[1.5rem] sm:rounded-[2rem] relative slide-up border border-transparent hover:border-brand-500/20" style="animation-delay: ${Math.min(index * 0.03, 0.5)}s" id="ayah-${ayah.nomorAyat}">
                                     <div class="flex justify-between items-start mb-4 sm:mb-6">
-                                        <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-gray-100 dark:bg-white/5 flex items-center justify-center font-bold text-xs sm:text-sm shadow-inner">${noAyat}</div>
+                                        <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-gray-100 dark:bg-white/5 flex items-center justify-center font-bold text-xs sm:text-sm shadow-inner">${ayah.nomorAyat}</div>
                                         <div class="flex gap-1.5 sm:gap-2 bg-gray-50/50 dark:bg-black/20 p-1 sm:p-1.5 rounded-xl sm:rounded-2xl">
-                                            <a href="${audioUrl}" target="_blank" download title="Unduh Murottal Ayat" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg sm:rounded-xl text-gray-400 hover:text-brand-500 hover:bg-white/50 dark:hover:bg-white/5 transition-colors"><i class="ph-fill ph-download-simple text-xs sm:text-sm"></i></a>
-                                            <button onclick="app.playAyah('${audioUrl}', '${surah.nama_latin || surah.namaLatin} - Ayat ${noAyat}', ${encodeURIComponent(JSON.stringify(playlist))}, ${index})" title="Putar Murottal Ayat" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg sm:rounded-xl text-gray-400 hover:text-brand-500 hover:bg-white/50 dark:hover:bg-white/5 transition-colors"><i class="ph-fill ph-play text-xs sm:text-sm"></i></button>
-                                            <button onclick="app.setLastRead(${surahId}, ${noAyat}, '${surah.nama_latin || surah.namaLatin}')" title="Tandai Terakhir Dibaca" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg sm:rounded-xl text-gray-400 hover:text-brand-500 hover:bg-white/50 dark:hover:bg-white/5 transition-colors"><i class="ph-fill ph-flag-banner text-xs sm:text-sm"></i></button>
+                                            <a href="${ayah.audio[qari]}" target="_blank" download title="Unduh Murottal Ayat" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg sm:rounded-xl text-gray-400 hover:text-brand-500 hover:bg-white/50 dark:hover:bg-white/5 transition-colors"><i class="ph-fill ph-download-simple text-xs sm:text-sm"></i></a>
+                                            <button onclick="app.playAyah('${ayah.audio[qari]}', '${surah.namaLatin} - Ayat ${ayah.nomorAyat}', ${encodeURIComponent(JSON.stringify(playlist))}, ${index})" title="Putar Murottal Ayat" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg sm:rounded-xl text-gray-400 hover:text-brand-500 hover:bg-white/50 dark:hover:bg-white/5 transition-colors"><i class="ph-fill ph-play text-xs sm:text-sm"></i></button>
+                                            <button onclick="app.setLastRead(${surahId}, ${ayah.nomorAyat}, '${surah.namaLatin}')" title="Tandai Terakhir Dibaca" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg sm:rounded-xl text-gray-400 hover:text-brand-500 hover:bg-white/50 dark:hover:bg-white/5 transition-colors"><i class="ph-fill ph-flag-banner text-xs sm:text-sm"></i></button>
                                         </div>
                                     </div>
-                                    <div class="arabic-text font-arabic text-right mb-6 sm:mb-8 text-gray-900 dark:text-white" style="font-size: var(--arabic-size, 32px);">${tArab}</div>
+                                    <div class="arabic-text font-arabic text-right mb-6 sm:mb-8 text-gray-900 dark:text-white" style="font-size: var(--arabic-size, 32px);">${ayah.teksArab}</div>
                                     <div class="space-y-3 sm:space-y-4 border-t border-gray-100 dark:border-white/5 pt-4 sm:pt-6">
-                                        <p class="text-xs sm:text-sm font-semibold text-brand-600 dark:text-brand-400">${tLatin}</p>
-                                        <p class="text-xs sm:text-sm lg:text-base text-gray-600 dark:text-gray-300 leading-relaxed">${tIndo}</p>
+                                        <p class="text-xs sm:text-sm font-semibold text-brand-600 dark:text-brand-400">${ayah.teksLatin}</p>
+                                        <p class="text-xs sm:text-sm lg:text-base text-gray-600 dark:text-gray-300 leading-relaxed">${ayah.teksIndonesia}</p>
                                     </div>
                                 </div>
-                            `
-                              })
+                            `,
+                              )
                               .join('')}
                         </div>
                     </div>
@@ -716,85 +600,6 @@ const Views = {
           el.classList.add('ring-2', 'ring-brand-500')
         }
       }, 600)
-  },
-
-  renderTahlilYasin() {
-    const content = document.getElementById('app-content')
-
-    // Prevent crashes if the element hasn't loaded yet
-    if (!content) {
-      console.error("Element 'app-content' not found.")
-      return
-    }
-
-    content.innerHTML = `
-        <div class="fade-in max-w-4xl mx-auto pb-10">
-            <div class="sticky top-[72px] lg:top-0 bg-[#f4f4f5]/90 dark:bg-[#09090b]/90 backdrop-blur-xl z-20 py-3 sm:py-4 mb-6 sm:mb-8 flex items-center gap-3 sm:gap-4 px-1 sm:px-2">
-                <button onclick="app.navigate('home')" class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-gray-200/50 dark:bg-white/10 hover:bg-gray-300 transition-colors">
-                    <i class="ph-bold ph-arrow-left text-sm sm:text-lg"></i>
-                </button>
-                <div>
-                    <h2 class="text-xl sm:text-2xl font-display font-bold">Tahlil</h2>
-                    <p class="text-[9px] sm:text-[11px] font-semibold text-gray-500 uppercase tracking-widest mt-0.5">Panduan Bacaan Lengkap</p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                <!-- Pilihan Susunan Tahlil -->
-                <div class="glass-panel p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem] hover-lift cursor-pointer border border-emerald-500/20 group relative overflow-hidden" onclick="app.navigate('tahlilDetail')">
-                    <div class="absolute right-0 bottom-0 opacity-10 group-hover:scale-110 transition-transform duration-500 translate-x-4 translate-y-4">
-                        <i class="ph-fill ph-hands-praying text-9xl text-emerald-500"></i>
-                    </div>
-                    <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-500/10 text-emerald-500 flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform">
-                        <i class="ph-fill ph-hands-praying text-2xl"></i>
-                    </div>
-                    <h3 class="font-display font-bold text-xl sm:text-2xl mb-2 group-hover:text-emerald-500 transition-colors">Susunan Tahlil</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-6 relative z-10">Panduan urutan dzikir dan doa Tahlil untuk mendoakan arwah ahli kubur.</p>
-                    <div class="flex items-center text-emerald-500 font-bold text-xs sm:text-sm gap-2">Buka Panduan <i class="ph-bold ph-arrow-right"></i></div>
-                </div>
-            </div>
-        </div>
-    `
-  },
-
-  renderTahlilDetail() {
-    const content = document.getElementById('app-content')
-    content.innerHTML = `
-                    <div class="fade-in max-w-3xl mx-auto pb-10">
-                        <div class="sticky top-[72px] lg:top-0 bg-[#f4f4f5]/90 dark:bg-[#09090b]/90 backdrop-blur-xl z-20 py-3 sm:py-4 mb-6 sm:mb-8 flex items-center justify-between px-1 sm:px-2">
-                            <div class="flex items-center gap-3 sm:gap-4">
-                                <button onclick="app.navigate('tahlilYasin')" class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-gray-200/50 dark:bg-white/10 hover:bg-gray-300 transition-colors"><i class="ph-bold ph-arrow-left text-sm sm:text-lg"></i></button>
-                                <div>
-                                    <h2 class="text-xl sm:text-2xl font-display font-bold">Susunan Tahlil</h2>
-                                    <p class="text-[9px] sm:text-[11px] font-semibold text-gray-500 uppercase tracking-widest mt-0.5">Urutan Zikir & Doa</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="space-y-4 sm:space-y-6">
-                            ${Database.tahlil
-                              .map(
-                                (item, index) => `
-                                <div class="glass-panel p-5 sm:p-6 lg:p-8 rounded-[1.5rem] sm:rounded-[2rem] relative slide-up border border-transparent hover:border-emerald-500/20" style="animation-delay: ${Math.min(index * 0.03, 0.5)}s">
-                                    <div class="mb-4 sm:mb-6">
-                                        <span class="text-[10px] sm:text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 shadow-sm border border-emerald-500/10">
-                                            ${item.title}
-                                        </span>
-                                    </div>
-                                    <div class="arabic-text font-arabic text-right mb-5 sm:mb-6 text-gray-900 dark:text-white" style="font-size: var(--arabic-size, 32px); line-height: 2.2;">
-                                        ${item.ar}
-                                    </div>
-                                    <div class="border-t border-gray-100 dark:border-white/5 pt-4 sm:pt-6 space-y-3">
-                                        <p class="text-xs sm:text-sm font-semibold text-emerald-600 dark:text-emerald-400 italic">${item.tr}</p>
-                                        <p class="text-xs sm:text-sm lg:text-base text-gray-600 dark:text-gray-300 leading-relaxed">${item.idn}</p>
-                                    </div>
-                                </div>
-                            `,
-                              )
-                              .join('')}
-                        </div>
-                    </div>
-                `
   },
 
   renderQuizScreen() {
@@ -819,7 +624,7 @@ const Views = {
                             <h2 class="font-display font-bold text-3xl mb-2">Kuis Selesai!</h2>
                             <p class="text-gray-500 text-sm mb-6">Anda telah menyelesaikan kuis harian untuk hari ini.</p>
                             <div class="glass-panel p-8 rounded-[2rem] w-full border border-brand-500/20 mb-8">
-                                <p class="text-xs font-bold uppercase tracking-widest text-brand-500 mb-2">Total Akumulasi Skor Anda</p>
+                                <p class="text-xs font-bold uppercase tracking-widest text-brand-500 mb-2">Total Skor Kuis Anda</p>
                                 <p class="font-mono text-6xl font-bold mb-4">${qs.score}</p>
                             </div>
                             <button onclick="app.navigate('home')" class="px-8 py-3 bg-gray-100 dark:bg-white/10 hover:bg-gray-200 font-bold rounded-xl transition-colors">Kembali ke Beranda</button>
@@ -984,6 +789,7 @@ const Views = {
                             <h2 class="text-2xl sm:text-3xl font-display font-bold">Profil & Pengaturan</h2>
                         </div>
 
+                        <!-- Progress Section -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-6 sm:mb-8">
                             <div class="glass-panel p-5 sm:p-6 rounded-[1.25rem] sm:rounded-[1.5rem] hover-lift">
                                 <div class="flex items-center gap-3 mb-2">
@@ -1001,12 +807,13 @@ const Views = {
                             </div>
                         </div>
 
-                        <!-- Pengaturan Audio Murottal -->
+                        <!-- Pengaturan Audio Murottal (FITUR BARU) -->
                         <div class="glass-panel p-5 sm:p-7 rounded-[1.5rem] sm:rounded-[2rem] mb-6 sm:mb-8 border border-brand-500/20">
                             <h3 class="font-display font-bold text-lg sm:text-xl mb-1 flex items-center gap-2"><i class="ph-fill ph-headphones text-brand-500"></i> Pengaturan Murottal</h3>
                             <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-5 sm:mb-6">Sesuaikan qari dan mode audio untuk pengalaman menghafal terbaik.</p>
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <!-- Pilih Qari -->
                                 <div class="bg-white/50 dark:bg-black/20 p-4 rounded-xl border border-white/40 dark:border-white/5">
                                     <label class="block text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Pilihan Qari Internasional</label>
                                     <div class="relative">
@@ -1021,6 +828,7 @@ const Views = {
                                     </div>
                                 </div>
 
+                                <!-- Toggle Loop Hafalan -->
                                 <div class="bg-white/50 dark:bg-black/20 p-4 rounded-xl border border-white/40 dark:border-white/5 flex items-center justify-between">
                                     <div>
                                         <h4 class="font-bold text-sm sm:text-base">Mode Hafalan (Loop)</h4>
@@ -1035,6 +843,7 @@ const Views = {
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                            <!-- Backup & Restore JSON -->
                             <div class="glass-panel p-5 sm:p-7 rounded-[1.5rem] sm:rounded-[2rem]">
                                 <h3 class="font-display font-bold text-lg sm:text-xl mb-1 flex items-center gap-2"><i class="ph-fill ph-hard-drives text-brand-500"></i> File Backup (JSON)</h3>
                                 <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-5 sm:mb-6">Simpan atau pulihkan file data Anda.</p>
@@ -1051,6 +860,7 @@ const Views = {
                                 </div>
                             </div>
 
+                            <!-- Pindah Perangkat QR -->
                             <div class="glass-panel p-5 sm:p-7 rounded-[1.5rem] sm:rounded-[2rem]">
                                 <h3 class="font-display font-bold text-lg sm:text-xl mb-1 flex items-center gap-2"><i class="ph-fill ph-qr-code text-purple-500"></i> Pindah HP Baru (QR)</h3>
                                 <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-5 sm:mb-6">Transfer data offline cepat menggunakan kamera.</p>
@@ -1065,20 +875,11 @@ const Views = {
                                     </button>
                                 </div>
                             </div>
-<<<<<<< HEAD
                         </div>
 
                         <div class="mt-6 sm:mt-8 glass-panel p-5 sm:p-6 rounded-[1.5rem] border border-red-500/20 bg-red-50/50 dark:bg-red-900/10 flex items-center justify-between">
-                            <div>
-                            <h3 class="font-bold text-red-600 dark:text-red-400 text-xs sm:text-sm">Hapus Semua Data</h3><p class="text-[10px] sm:text-xs text-gray-500">Tindakan tidak dapat dibatalkan.</p>
-                            </div>
-                            <button class="px-4 py-2 sm:px-5 sm:py-2.5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-lg sm:rounded-xl text-xs sm:text-sm transition-colors shadow-md">Reset</button>
-=======
-                            <div class="mt-6 sm:mt-8 glass-panel p-5 sm:p-6 rounded-[1.5rem] border border-red-500/20 bg-red-50/50 dark:bg-red-900/10 flex items-center justify-between">
-                                <div><h3 class="font-bold text-red-600 dark:text-red-400 text-xs sm:text-sm">Hapus Semua Data</h3><p class="text-[10px] sm:text-xs text-gray-500">Tindakan tidak dapat dibatalkan.</p></div>
-                                <button class="px-4 py-2 sm:px-5 sm:py-2.5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-lg sm:rounded-xl text-xs sm:text-sm transition-colors shadow-md">Reset</button>
-                            </div>
->>>>>>> 7ac8ee1ebea815cbf7ce902b1860f12fe21768aa
+                            <div><h3 class="font-bold text-red-600 dark:text-red-400 text-xs sm:text-sm">Hapus Semua Data</h3><p class="text-[10px] sm:text-xs text-gray-500">Tindakan tidak dapat dibatalkan.</p></div>
+                            <button onclick="app.confirmReset()" class="px-4 py-2 sm:px-5 sm:py-2.5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-lg sm:rounded-xl text-xs sm:text-sm transition-colors shadow-md">Reset</button>
                         </div>
                     </div>
                 `
@@ -1097,7 +898,6 @@ const app = {
     const navItems = [
       { id: 'home', icon: 'house', label: 'Beranda' },
       { id: 'surahList', icon: 'book-open', label: 'Al-Quran' },
-      { id: 'tahlilYasin', icon: 'book-bookmark', label: 'Yasin & Tahlil' },
       { id: 'quiz', icon: 'question', label: 'Kuis' },
       { id: 'settings', icon: 'user', label: 'Profil' },
     ]
@@ -1115,8 +915,7 @@ const app = {
       const target = btn.dataset.target
       const isActive =
         target === activeId ||
-        (activeId === 'surahDetail' && target === 'surahList') ||
-        (activeId === 'tahlilDetail' && target === 'tahlilYasin')
+        (activeId === 'surahDetail' && target === 'surahList')
       btn.className = btn.className
         .replace(
           /text-brand-600|dark:text-brand-400|bg-brand-50|dark:bg-brand-500\/10|font-bold/g,
@@ -1144,8 +943,6 @@ const app = {
     else if (view === 'quiz') Views.renderQuizScreen()
     else if (view === 'asmaulHusna') Views.renderAsmaulHusna()
     else if (view === 'doaHarian') Views.renderDoaHarian()
-    else if (view === 'tahlilYasin') Views.renderTahlilYasin()
-    else if (view === 'tahlilDetail') Views.renderTahlilDetail()
     else if (view === 'settings') Views.renderSettings()
   },
   toggleTheme() {
@@ -1153,6 +950,8 @@ const app = {
     State.save()
     State.applyTheme()
   },
+
+  // Pengaturan Audio Methods
   changeQari(value) {
     State.data.qari = value
     State.save()
@@ -1301,12 +1100,15 @@ const app = {
     expl.classList.remove('hidden')
     expl.scrollIntoView({ behavior: 'smooth', block: 'end' })
   },
+
   nextQuizQuestion() {
     State.data.quiz.currentIdx++
     if (State.data.quiz.currentIdx >= 5) State.data.quiz.completed = true
     State.save()
     this.navigate('quiz')
   },
+
+  // Doa Modal
   showDoaDetail(encodedDoa) {
     const doa = JSON.parse(decodeURIComponent(encodedDoa))
     const overlay = document.getElementById('modal-overlay')
@@ -1336,6 +1138,8 @@ const app = {
       content.classList.remove('scale-95')
     }, 10)
   },
+
+  // Sholat Engine
   updatePrayerUI() {
     const pt = State.data.prayerTimes
     const container = document.getElementById('prayer-container')
@@ -1443,6 +1247,8 @@ const app = {
       index,
     )
   },
+
+  // --- BACKUP & RESTORE JSON ---
   exportDataJSON() {
     try {
       const dataStr = JSON.stringify(State.data, null, 2)
@@ -1481,6 +1287,8 @@ const app = {
     reader.readAsText(file)
     event.target.value = ''
   },
+
+  // --- QR SYNC FUNCTIONS ---
   showGenerateQRModal() {
     const overlay = document.getElementById('modal-overlay')
     const content = document.getElementById('modal-content')
@@ -1524,6 +1332,7 @@ const app = {
       })
     }, 300)
   },
+
   showScannerModal() {
     const overlay = document.getElementById('modal-overlay')
     const content = document.getElementById('modal-content')

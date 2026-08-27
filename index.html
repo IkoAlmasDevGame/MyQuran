@@ -14,6 +14,7 @@
       <!-- Tailwind CSS -->
       <script src="https://cdn.tailwindcss.com"></script>
       <link rel="manifest" href="manifest.json">
+      <link rel="stylesheet" href="style.css">
 
       <!-- Phosphor Icons -->
       <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -54,6 +55,7 @@
       </script>
 
       <style>
+         /* Base & Scrollbar */
          ::-webkit-scrollbar {
             width: 4px;
             height: 4px;
@@ -85,6 +87,7 @@
             color: #fafafa;
          }
 
+         /* Glassmorphism & Depth */
          .glass-panel {
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(16px);
@@ -117,6 +120,7 @@
             box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.5);
          }
 
+         /* Typography & Layout Helpers */
          .arabic-text {
             direction: rtl;
             line-height: 2.2 !important;
@@ -136,6 +140,7 @@
             padding-top: env(safe-area-inset-top, 20px);
          }
 
+         /* Animations */
          .fade-in {
             animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
          }
@@ -178,6 +183,7 @@
             opacity: 1;
          }
 
+         /* Quiz States */
          .option-correct {
             background-color: #10b981 !important;
             color: white !important;
@@ -195,6 +201,7 @@
             pointer-events: none;
          }
 
+         /* QR Scanner Overrides */
          #reader__scan_region {
             background: black;
             border-radius: 1rem;
@@ -215,6 +222,7 @@
          <button id="dismissBtn" onclick="this.parentNode.style.display='none'">Maybe Later</button>
       </div>
 
+      <!-- Desktop Sidebar -->
       <aside
          class="fixed inset-y-0 left-0 w-72 glass-panel hidden lg:flex flex-col z-40 border-r border-gray-200 dark:border-white/5">
          <div class="p-8 flex items-center gap-4">
@@ -235,6 +243,7 @@
          </div>
       </aside>
 
+      <!-- Mobile Header -->
       <header
          class="lg:hidden sticky top-0 z-30 glass-panel border-b border-gray-200 dark:border-white/5 px-5 pt-safe flex justify-between items-center h-[72px]">
          <div class="flex items-center gap-3">
@@ -251,13 +260,16 @@
          </button>
       </header>
 
+      <!-- Main Content -->
       <main id="app-content" class="flex-1 w-full max-w-5xl mx-auto p-4 sm:p-6 lg:p-10 relative"></main>
 
+      <!-- Mobile Bottom Nav -->
       <nav
          class="lg:hidden fixed bottom-0 left-0 right-0 glass-panel border-t border-gray-200 dark:border-white/5 z-40 pb-safe">
          <div class="flex justify-around items-center h-[72px] px-2" id="mobile-nav"></div>
       </nav>
 
+      <!-- Global Audio Player -->
       <div id="audio-player"
          class="fixed bottom-[96px] lg:bottom-8 right-4 lg:right-8 w-[calc(100%-2rem)] lg:w-80 glass-panel rounded-3xl p-5 z-50 transform translate-y-full opacity-0 transition-all duration-500 pointer-events-none shadow-2xl shadow-brand-500/10 border border-white/40 dark:border-white/10">
          <div class="flex justify-between items-center mb-3">
@@ -269,6 +281,7 @@
                class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-red-500 bg-gray-100 dark:bg-white/5 rounded-full transition-colors"><i
                   class="ph-bold ph-x text-sm"></i></button>
          </div>
+         <!-- Player Controls (Loop, Prev, Play/Pause, Next, Download) -->
          <div class="flex items-center justify-center gap-4 sm:gap-5 mt-4">
             <button id="btn-audio-loop" onclick="audioManager.toggleLoop()"
                class="text-gray-400 hover:text-brand-500 transition-colors" title="Mode Hafalan (Loop)"><i
@@ -298,6 +311,7 @@
          <audio id="global-audio" class="hidden"></audio>
       </div>
 
+      <!-- Toasts & Modals -->
       <div id="toast-container"
          class="fixed top-24 lg:top-10 left-1/2 transform -translate-x-1/2 flex flex-col gap-3 z-[60] w-full max-w-sm px-4 pointer-events-none">
       </div>
@@ -309,47 +323,30 @@
       </div>
 
       <!-- ================= JAVASCRIPT ENGINE ================= -->
-      <script src="script.js"></script>
-      <script lang="javascript">
-         // PWA Installation handling
-         let deferredPrompt
-         window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault()
-            deferredPrompt = e
-            const installBanner = document.getElementById('installBanner')
-            if (installBanner) installBanner.style.display = 'flex'
-         })
-
-         document.getElementById('installBtn').addEventListener('click', async () => {
-            document.getElementById('installBanner').style.display = 'none'
-            deferredPrompt.prompt()
-            const { outcome } = await deferredPrompt.userChoice
-            console.log(`User response: ${outcome}`)
-            deferredPrompt = null
-         })
-
-         window.addEventListener('appinstalled', (event) => {
-            console.log('App was installed to home screen')
-            e.preventDefault()
-            deferredPrompt = e
-            const installBanner = document.getElementById('installBanner')
-            if (installBanner) installBanner.style.display = 'flex'
-         })
-
-         document.getElementById('installBtn').addEventListener('click', async () => {
-            document.getElementById('installBanner').style.display = 'none'
-            deferredPrompt.prompt()
-            const { outcome } = await deferredPrompt.userChoice
-            console.log(`User response: ${outcome}`)
-            deferredPrompt = null
-         })
-
-         window.addEventListener('appinstalled', (event) => {
-            console.log('App was installed to home screen')
-         })
-      </script>
+      <script src="scripts.js"></script>
       <script src="service-worker.js"></script>
-      <script src="main.js"></script>
+      <script>
+         // PWA Installation handling
+         let deferredPrompt;
+         window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const installBanner = document.getElementById('installBanner');
+            if (installBanner) installBanner.style.display = 'flex';
+         });
+
+         document.getElementById('installBtn').addEventListener('click', async () => {
+            document.getElementById('installBanner').style.display = 'none';
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User response: ${outcome}`);
+            deferredPrompt = null;
+         });
+
+         window.addEventListener('appinstalled', (event) => {
+            console.log('App was installed to home screen');
+         });
+      </script>
    </body>
 
 </html>
