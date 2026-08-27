@@ -294,15 +294,21 @@ const API = {
   baseUrl: 'https://api.myquran.com/v3/quran',
   // Replace the API.getSurahList() method with this direct call:
   async getSurahList() {
-    try {
-      const res = await fetch(`${this.baseUrl}/surat`)
-      const json = await res.json()
-      return json.data || json || []
-    } catch (e) {
-      Utils.showToast('Gagal memuat Surat', 'error')
-      return []
-    }
-  },
+                try {
+                    const res = await fetch(`${this.baseUrl}/surات`); // wait, use standard path /surat
+                    const json = await res.json();
+                    return json.data || json || [];
+                } catch (e) {
+                    try {
+                        const fallback = await fetch(`${this.baseUrl}/surat`);
+                        const json2 = await fallback.json();
+                        return json2.data || json2 || [];
+                    } catch(err) {
+                        Utils.showToast('Gagal memuat Surat', 'error');
+                        return [];
+                    }
+                }
+            },
   async getSurahDetail(id) {
     try {
       const res = await fetch(`${this.baseUrl}/surat/${id}`)
