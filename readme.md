@@ -2,7 +2,7 @@
 
 - Fitur Wajib :
 
-1. Teks Quran Utsmani 30 Juz (API https://equran.id/)
+1. Teks Quran Utsmani 30 Juz (API https://api.myquran.com/v3/quran)
 2. Terjemah Kemenag RI
 3. Audio Murrotal
 4. Pencarian Cepat
@@ -23,8 +23,9 @@
 
 1. Bookmark & Highlight
 2. Murrotal Pengantar Tidur (Update Mendatang)
-3. Share Kartu Ayat (Update mendatang)
+3. Share Kartu Ayat (Update)
 4. Quiz Quran Offline
+5. Buku Tahlil (Update)
 
 - Fitur tanpa login :
 
