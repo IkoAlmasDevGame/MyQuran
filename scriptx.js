@@ -877,9 +877,9 @@ const Views = {
                             </div>
                         </div>
 
-                        <div class="mt-6 sm:mt-8 glass-panel p-5 sm:p-6 rounded-[1.5rem] border border-red-500/20 bg-red-50/50 dark:bg-red-900/10 flex items-center justify-between">
+                        <div hidden class="mt-6 sm:mt-8 glass-panel p-5 sm:p-6 rounded-[1.5rem] border border-red-500/20 bg-red-50/50 dark:bg-red-900/10 flex items-center justify-between">
                             <div><h3 class="font-bold text-red-600 dark:text-red-400 text-xs sm:text-sm">Hapus Semua Data</h3><p class="text-[10px] sm:text-xs text-gray-500">Tindakan tidak dapat dibatalkan.</p></div>
-                            <button class="px-4 py-2 sm:px-5 sm:py-2.5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-lg sm:rounded-xl text-xs sm:text-sm transition-colors shadow-md">Reset</button>
+                            <button onclick="" class="px-4 py-2 sm:px-5 sm:py-2.5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-lg sm:rounded-xl text-xs sm:text-sm transition-colors shadow-md">Reset</button>
                         </div>
                     </div>
                 `
@@ -1407,7 +1407,7 @@ const app = {
                         <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-6 sm:mb-8">Semua riwayat bacaan dan skor akan dihapus permanen.</p>
                         <div class="flex gap-2 sm:gap-3">
                             <button onclick="${closeScript}" class="flex-1 py-3 sm:py-3.5 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-gray-300 font-bold rounded-lg sm:rounded-xl text-xs sm:text-sm">Batal</button>
-                            <button onclick="localStorage.clear(); location.reload();" class="flex-1 py-3 sm:py-3.5 bg-red-500 text-white font-bold rounded-lg sm:rounded-xl shadow-lg shadow-red-500/30 text-xs sm:text-sm">Ya, Hapus</button>
+                            <button onclick="" class="flex-1 py-3 sm:py-3.5 bg-red-500 text-white font-bold rounded-lg sm:rounded-xl shadow-lg shadow-red-500/30 text-xs sm:text-sm">Ya, Hapus</button>
                         </div>
                     </div>
                 `
