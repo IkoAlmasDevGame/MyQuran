@@ -2,7 +2,7 @@
 
 - Fitur Wajib :
 
-1. Teks Quran Utsmani 30 Juz (API https://equran.id/api/v2/surat)
+1. Teks Quran Utsmani (API https://api.myquran.com/v3/quran)
 2. Terjemah Kemenag RI
 3. Audio Murrotal
 4. Pencarian Cepat
@@ -14,18 +14,19 @@
 1. Jadwal Sholat + Arah Kiblat
 2. Tafsir Ringkas Kemenag
 3. 99 Nama Asmaul Husna (API https://api.aladhan.com/v1/asmaAlHusna)
-4. Doa Harian (API https://equran.id/)
+4. Doa Harian (API https://equran.id/api/doa)
 5. Target Khatam Manual
 6. Kalender Hijriah
 7. Mode malam & Atur Font
+8. Doa Tahlil
+9. Buku Hadith (API https://hadis-api-id.vercel.app/hadith)
 
 - Fitur Tambahan :
 
 1. Bookmark & Highlight
-2. Murrotal Pengantar Tidur (Update Mendatang)
-3. Share Kartu Ayat (Update)
+2. Murrotal Pengantar Tidur
+3. Share Kartu Ayat
 4. Quiz Quran Offline
-5. Buku Tahlil (Update Mendatang karena bug)
 
 - Fitur tanpa login :
 
